@@ -29,7 +29,6 @@ class CustomButton extends StatefulWidget {
       this.onTap,
       this.containerColor,
       this.buttonTextColor,
-
       this.textFontSize,
       this.padding});
 
@@ -43,24 +42,22 @@ class _CustomButtonState extends State<CustomButton> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        decoration:widget.darkTheme==true?
-             BoxDecoration(
-              borderRadius:  const BorderRadius.all(Radius.circular(7)),
-              color: Colors.black,
-              border: Border.all(color: LocalThemes.darkThemeButtonContainerColor,width: 1),
-
-            )
-            :  BoxDecoration(
+        decoration: widget.darkTheme == true
+            ? BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(7)),
-                color: widget.containerColor??Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.05),
-              blurRadius: 4,
-              spreadRadius: 1
-            )
-          ]
-               ),
+                color: Colors.black,
+                border: Border.all(
+                    color: LocalThemes.darkThemeButtonContainerColor, width: 1),
+              )
+            : BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(7)),
+                color: widget.containerColor ?? Colors.white,
+                boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.05),
+                        blurRadius: 4,
+                        spreadRadius: 1)
+                  ]),
         child: Padding(
           padding: widget.padding ??
               const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -70,8 +67,8 @@ class _CustomButtonState extends State<CustomButton> {
             children: [
               CustomText(
                 text: widget.text,
-                 darkTheme:widget.darkTheme ,
-                textColor:widget.buttonTextColor ,
+                darkTheme: widget.darkTheme,
+                textColor: widget.buttonTextColor,
                 fontSize: widget.textFontSize ?? 17,
                 fontWeight: FontWeight.w800,
               ),

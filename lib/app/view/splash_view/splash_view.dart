@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:teacherTMS/core/constant/colors.dart';
-import 'package:teacherTMS/custom_widgets/custom_text.dart';
-import 'package:teacherTMS/widgets/image_view.dart';
 
-import '../../../controller/dashboard_controller.dart';
 import '../../../core/config/app_images.dart';
 import '../../../custom_widgets/Custom_gap.dart';
+import '../../../custom_widgets/custom_text.dart';
 import '../../../route/route_paths.dart';
+import '../../../widgets/image_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

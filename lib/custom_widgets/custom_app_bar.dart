@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
-import '../core/config/app_images.dart';
 import '../widgets/image_view.dart';
 import 'custom_text.dart';
 

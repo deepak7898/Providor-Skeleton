@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import 'package:teacherTMS/custom_widgets/Custom_gap.dart';
-import 'package:teacherTMS/custom_widgets/custom_button.dart';
+
 
 import '../../../controller/dashboard_controller.dart';
 import '../../../core/config/app_images.dart';
-import '../../../core/constant/colors.dart';
+
+import '../../../custom_widgets/Custom_gap.dart';
+import '../../../custom_widgets/custom_button.dart';
 import '../../../custom_widgets/custom_text.dart';
 
 import '../../../route/route_paths.dart';
@@ -28,19 +29,19 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   List<Item> item = [
     Item(
         image: AppImages.onBoardingFirst,
-        title: 'Empower Your Teaching Journey',
+        title: 'Welcome to BookFlow!',
         subTitle:
-            'Join a vibrant community of educators, enhance your teaching skills, and stay updated with modern techniques. Unlock access to expert-led training designed to elevate your teaching career.'),
+            'Effortlessly manage book distribution, track orders, and connect with buyers to grow your business with ease and efficiency.'),
     Item(
         image: AppImages.onBoardingSecond,
-        title: 'Enhance Your Skills',
+        title: 'Effortless Book Management',
         subTitle:
-            'Gain in-depth knowledge through interactive courses, real-world case studies, and live mentorship sessions. Improve your classroom strategies and teaching methodologies to create a better learning experience for students'),
+            'Easily organize your book inventory, manage bulk orders, track sales, and streamline distribution with a powerful, user-friendly system designed for efficiency and growth.'),
     Item(
         image: AppImages.onBoardingThird,
-        title: 'Earn & Apply Your Knowledge',
+        title: 'Fast & Reliable Delivery',
         subTitle:
-            "Complete engaging training modules, earn industry-recognized certifications, and become a more effective educator. Apply your learning in real classrooms and make a lasting impact on students' futures."),
+            "Ensure timely book deliveries with automated tracking, efficient logistics, and real-time updates for a seamless distribution experience."),
   ];
   int? swipIndex = 0;
   @override

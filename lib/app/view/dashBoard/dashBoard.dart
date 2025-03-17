@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teacherTMS/custom_widgets/custom_text.dart';
+
+import '../../../custom_widgets/custom_text.dart';
+
 
 class Dashboard extends StatefulWidget {
  final String?name;

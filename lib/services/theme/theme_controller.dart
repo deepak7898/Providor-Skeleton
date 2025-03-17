@@ -22,14 +22,14 @@ class AppThemes {
 
      ),
 
-      appBarTheme: const AppBarTheme(
+      appBarTheme:  AppBarTheme(
         elevation: 1,
         backgroundColor: primaryColor,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         centerTitle: true,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w700,
         ),

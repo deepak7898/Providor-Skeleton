@@ -5,6 +5,7 @@ class Routs {
   static const String loginView = '/loginView';
   static const String splashView = '/splashView';
   static const String dashBoard = '/dashBoard';
+  static const String register = '/register';
 
 
 }

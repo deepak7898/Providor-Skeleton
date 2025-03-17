@@ -15,6 +15,7 @@ MaterialColor createMaterialColor(Color color) {
   };
   return MaterialColor(color.value, swatch);
 }
-const Color primaryColor = Color.fromARGB(255, 7, 89, 133);
+// const Color primaryColor = Color.fromARGB(255, 7, 89, 133);
+ Color primaryColor = Colors.blue.shade900;
 const Color darkThemeApp = Colors.black87;
 final Color secondaryColor = Colors.greenAccent.shade200;

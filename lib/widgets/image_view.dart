@@ -138,7 +138,7 @@ class ImageView extends StatelessWidget {
     return SizedBox(
       height: height ?? 10,
       width: width ?? 10,
-      child: const Center(
+      child:  Center(
         child: CupertinoActivityIndicator(color: primaryColor),
       ),
     );
@@ -171,7 +171,7 @@ class ImageView extends StatelessWidget {
     return SizedBox(
       height: height ?? 10,
       width: width ?? 10,
-      child: const Center(
+      child:  Center(
         child: CupertinoActivityIndicator(color: primaryColor),
       ),
     );

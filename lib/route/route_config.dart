@@ -1,3 +1,4 @@
+import 'package:The_Book_Corporation/app/view/auth/register_view.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -27,7 +28,19 @@ class RoutesConfig {
         name: Routs.loginView,
         path: Routs.loginView,
         pageBuilder: (context, state) {
-          return customTransitionPage(state: state, child: const LoginView(),);
+          return
+            CustomTransitionPage(
+              child:  const LoginView(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(1,0), // Right to Left Transition
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: child,
+                );
+              },
+            );
         },
       ),
       GoRoute(
@@ -35,6 +48,13 @@ class RoutesConfig {
         path: Routs.splashView,
         pageBuilder: (context, state) {
           return customTransitionPage(state: state, child: const SplashView(),);
+        },
+      ),
+      GoRoute(
+        name: Routs.register,
+        path: Routs.register,
+        pageBuilder: (context, state) {
+          return customTransitionPage(state: state, child: const RegisterView(),);
         },
       ),
       GoRoute(

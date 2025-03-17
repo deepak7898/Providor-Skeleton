@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:teacherTMS/core/constant/colors.dart';
 
+
+import '../core/constant/colors.dart';
 import '../services/theme/theme_controller.dart';
 
 
@@ -85,7 +86,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         obscuringCharacter: '*',
         validator: widget.validator,
         cursorColor:widget.darkTheme==true?LocalThemes.darkTextColor:LocalThemes.lightTextColor,
-        style:  TextStyle(color: widget.darkTheme==true?LocalThemes.darkTextColor:LocalThemes.lightTextColor,fontSize:widget.obscureText==true?20 :17,fontWeight: FontWeight.w500,letterSpacing:widget.obscureText==true ?4:0),
+        style:  TextStyle(color: widget.darkTheme==true?LocalThemes.darkTextColor:LocalThemes.lightTextColor,fontSize:widget.obscureText==true?20 :17,fontWeight: FontWeight.w400,letterSpacing:widget.obscureText==true ?4:0),
         decoration: InputDecoration(
             counterText: '',
 

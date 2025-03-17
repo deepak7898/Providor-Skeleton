@@ -1,8 +1,9 @@
+import 'package:The_Book_Corporation/route/route_config.dart';
+import 'package:The_Book_Corporation/services/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
-import 'package:teacherTMS/route/route_config.dart';
-import 'package:teacherTMS/services/theme/theme_controller.dart';
+
 
 import 'controller/dashboard_controller.dart';
 import 'core/config/app_config.dart';

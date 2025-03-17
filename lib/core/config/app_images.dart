@@ -10,4 +10,5 @@ class AppImages {
   static const String splashBackground = 'assets/images/splash_background.png';
   static const String loginBanner = 'assets/images/login_banner1.png';
   static const String loginBannerGreen = 'assets/images/login_banner_green.png';
+  static const String loginBannerLottie = 'assets/lottie/login_banner.json';
 }
