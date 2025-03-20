@@ -9,7 +9,7 @@ class CustomButton extends StatefulWidget {
   final String? text;
   final bool? showIcon;
   final bool? withOutColor;
-  final bool? darkTheme;
+
   final double? textFontSize;
   final double? rightIconSize;
   final IconData? rightIcon;
@@ -22,7 +22,6 @@ class CustomButton extends StatefulWidget {
       this.child,
       this.text,
       this.rightIcon,
-      this.darkTheme,
       this.rightIconSize,
       this.showIcon = false,
       this.withOutColor = false,
@@ -37,27 +36,24 @@ class CustomButton extends StatefulWidget {
 }
 
 class _CustomButtonState extends State<CustomButton> {
+  Color myColor1 = const Color.fromARGB(255, 216, 239, 211);
+  Color myColor2 = const Color.fromARGB(255, 85, 173, 155);
+  Color buttonColor =  const Color(0xFFE0E0E0);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        decoration: widget.darkTheme == true
-            ? BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(7)),
-                color: Colors.black,
-                border: Border.all(
-                    color: LocalThemes.darkThemeButtonContainerColor, width: 1),
-              )
-            : BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(7)),
-                color: widget.containerColor ?? Colors.white,
-                boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.05),
-                        blurRadius: 4,
-                        spreadRadius: 1)
-                  ]),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(7)),
+            color:widget.containerColor?? Colors.black45,
+
+            boxShadow: const [
+              BoxShadow(
+                  color:   Colors.black12,
+                  blurRadius: 4,
+                  spreadRadius: 1)
+            ]),
         child: Padding(
           padding: widget.padding ??
               const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -67,8 +63,7 @@ class _CustomButtonState extends State<CustomButton> {
             children: [
               CustomText(
                 text: widget.text,
-                darkTheme: widget.darkTheme,
-                textColor: widget.buttonTextColor,
+                textColor: Colors.white,
                 fontSize: widget.textFontSize ?? 17,
                 fontWeight: FontWeight.w800,
               ),

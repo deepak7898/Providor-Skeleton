@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/config/app_images.dart';
 import '../../../custom_widgets/Custom_gap.dart';
 import '../../../custom_widgets/custom_text.dart';
 import '../../../route/route_paths.dart';
+import '../../../services/database/local_database.dart';
+import '../../../widgets/gradient_colors.dart';
 import '../../../widgets/image_view.dart';
 
 class SplashView extends StatefulWidget {
@@ -15,42 +18,48 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+
   @override
   void initState() {
-   Future.delayed(const Duration(seconds: 3),() {
-     context.pushReplacement(Routs.onBoarding);
-   },);
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        context.read<LocalDatabase>().getIsLogin()==true?context.pushReplacement(Routs.dashBoard):context.pushReplacement(Routs.onBoarding)
+        ;
+      },
+    );
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-
-    Size  size =MediaQuery.of(context).size;
-    return  Scaffold(
-
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        clipBehavior: Clip.antiAlias,
-        children: [
-           const ImageView(
-            assetImage: AppImages.splashBackground,
-
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: backgroundGradient
+          ),
+          child: Stack(
+                alignment: Alignment.bottomCenter,
+                clipBehavior: Clip.antiAlias,
+                children: [
+          const ImageView(
+            assetImage: AppImages.splashImage,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-               const CustomText(
-
-                text: 'TTMS',
+              const CustomText(
+                text: 'TBC',
                 darkTheme: true,
                 fontSize: 30,
               ),
               SizedBox(
-                width: size.width*0.65,
+                width: size.width * 0.65,
                 child: const CustomText(
-
-                  text: 'Training Name; Training Date; Duration (days and Hours); Objectives; Discription; Location Training Coordinator’s Name and Contact No.',
+                  text:
+                      'Training Name; Training Date; Duration (days and Hours); Objectives; Discription; Location Training Coordinator’s Name and Contact No.',
                   fontSize: 9,
                   darkTheme: true,
                 ),
@@ -58,13 +67,10 @@ class _SplashViewState extends State<SplashView> {
               CustomGap(
                 height: size.height * 0.02,
               ),
-
             ],
           )
-
-        ],
-
-      )
-    );
+                ],
+              ),
+        ));
   }
 }

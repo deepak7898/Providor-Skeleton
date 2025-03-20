@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -31,8 +32,7 @@ class ApiService {
 
   ///Seconds
   Map<String, String> defaultHeaders() {
-    // return {'Authorization': 'Bearer ${GetStorageForUserController().getToken()}'};
-    return {};
+    return {'Content-Type': 'application/json'};
   }
   Future<http.Client> createHttpClient() async {
     final ioc = HttpClient()
@@ -51,14 +51,12 @@ class ApiService {
   }) async {
     String url = (baseUrl ?? ApiConfig.baseUrl) + endPoint;
     var uri = Uri.parse('$url${decodeQueryParameter(body: queryParameters)}');
-    debugPrint('token =====> ${defaultHeaders()}');
 
     try {
-      var client = await createHttpClient();
-      var response = await client.get(uri, headers: headers ?? defaultHeaders()).timeout(const Duration(seconds: timeOutDuration));
-
+      var response = await http.get(uri, headers: headers ?? defaultHeaders()).timeout(const Duration(seconds: timeOutDuration));
+           print('check resonce ${response.body}');
       return ErrorHandler.processResponse(response: response, showError: showError);
-
+      // return response.body;
     } catch (e, s) {
       return ErrorHandler.catchError(e, s, showError);
     }
@@ -75,11 +73,10 @@ class ApiService {
   }) async {
     String url = (baseUrl ?? ApiConfig.baseUrl) + endPoint;
     var uri = Uri.parse(url);
-    var client = await createHttpClient();
+    // var client = await createHttpClient();
     try {
-      print('check url $uri');
-      final response = await client.post(uri, headers: headers ?? defaultHeaders(), body: body).timeout(const Duration(seconds: timeOutDuration));
 
+      final response = await http.post(uri, headers: headers ?? defaultHeaders(), body: jsonEncode(body)).timeout(const Duration(seconds: timeOutDuration));
       return ErrorHandler.processResponse(response: response, showError: showError);
     } catch (e, s) {
 

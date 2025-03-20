@@ -32,7 +32,7 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar({
           ),
         ],
       ),
-      backgroundColor: color ?? Colors.blue.shade700,
+      backgroundColor:color ?? Colors.black54,
     ),
   );
 }

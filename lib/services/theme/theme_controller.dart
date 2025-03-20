@@ -22,9 +22,11 @@ class AppThemes {
 
      ),
 
-      appBarTheme:  AppBarTheme(
+      appBarTheme:   AppBarTheme(
         elevation: 1,
         backgroundColor: primaryColor,
+
+
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),

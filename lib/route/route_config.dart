@@ -1,73 +1,42 @@
 import 'package:The_Book_Corporation/app/view/auth/register_view.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-
 import '../app/view/auth/login_view.dart';
 import '../app/view/dashBoard/dashBoard.dart';
 import '../app/view/onBoarding_View/OnBoarding_view.dart';
 import '../app/view/splash_view/splash_view.dart';
+import '../services/database/local_database.dart';
 import '../services/theme/theme_controller.dart';
 import 'route_paths.dart';
+
 class RoutesConfig {
   ///1)  Route Config...
 
   static final GoRouter _router = GoRouter(
-    initialLocation: Routs.splashView,
+    initialLocation:Routs.splashView,
     routes: [
       GoRoute(
         name: Routs.onBoarding,
         path: Routs.onBoarding,
         pageBuilder: (context, state) {
-          return customTransitionPage(state: state, child: const OnBoardingView(),);
+          return customTransitionPage(
+            state: state,
+            child: const OnBoardingView(),
+          );
         },
       ),
       GoRoute(
         name: Routs.loginView,
         path: Routs.loginView,
         pageBuilder: (context, state) {
-          return
-            CustomTransitionPage(
-              child:  const LoginView(),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                return SlideTransition(
-                  position: Tween<Offset>(
-                    begin: const Offset(1,0), // Right to Left Transition
-                    end: Offset.zero,
-                  ).animate(animation),
-                  child: child,
-                );
-              },
-            );
-        },
-      ),
-      GoRoute(
-        name: Routs.splashView,
-        path: Routs.splashView,
-        pageBuilder: (context, state) {
-          return customTransitionPage(state: state, child: const SplashView(),);
-        },
-      ),
-      GoRoute(
-        name: Routs.register,
-        path: Routs.register,
-        pageBuilder: (context, state) {
-          return customTransitionPage(state: state, child: const RegisterView(),);
-        },
-      ),
-      GoRoute(
-        name: Routs.dashBoard,
-        path: Routs.dashBoard,
-        pageBuilder: (context, state){
-   Dashboard? data = state.extra as Dashboard?;
           return CustomTransitionPage(
-            child:  Dashboard(name:data?.name,),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            child: const LoginView(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
               return SlideTransition(
                 position: Tween<Offset>(
-                  begin: const Offset(1,0), // Right to Left Transition
+                  begin: const Offset(1, 0), // Right to Left Transition
                   end: Offset.zero,
                 ).animate(animation),
                 child: child,
@@ -76,7 +45,48 @@ class RoutesConfig {
           );
         },
       ),
-
+      GoRoute(
+        name: Routs.splashView,
+        path: Routs.splashView,
+        pageBuilder: (context, state) {
+          return customTransitionPage(
+            state: state,
+            child: const SplashView(),
+          );
+        },
+      ),
+      GoRoute(
+        name: Routs.register,
+        path: Routs.register,
+        pageBuilder: (context, state) {
+          return customTransitionPage(
+            state: state,
+            child: const RegisterView(),
+          );
+        },
+      ),
+      GoRoute(
+        name: Routs.dashBoard,
+        path: Routs.dashBoard,
+        pageBuilder: (context, state) {
+          Dashboard? data = state.extra as Dashboard?;
+          return CustomTransitionPage(
+            child: Dashboard(
+              name: data?.name,
+            ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0), // Right to Left Transition
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              );
+            },
+          );
+        },
+      ),
 
       // GoRoute(
       //   name: Routs.teacherLeaveDetails,
@@ -113,33 +123,31 @@ class RoutesConfig {
   }) {
     return MaterialPage(
         child: Scaffold(
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(child: Text('No Route defined for unknown  ${state.path}')),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CupertinoButton(
-                  color: AppThemes.lightTheme(context).primaryColor,
-                  child: const Text('Home'),
-                  onPressed: () {
-                    context.go(Routs.initialRoute);
-                  },
-                ),
-              ),
-            ],
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(child: Text('No Route defined for unknown  ${state.path}')),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CupertinoButton(
+              color: AppThemes.lightTheme(context).primaryColor,
+              child: const Text('Home'),
+              onPressed: () {
+                context.go(Routs.initialRoute);
+              },
+            ),
           ),
-        ));
+        ],
+      ),
+    ));
   }
 
   static authRedirect(BuildContext context, GoRouterState state) {}
 
   static bool isAuthenticated() {
-    // LocalDatabase localDatabase = LocalDatabase();
-    // return localDatabase.accessToken?.isNotEmpty == true;
-    return true;
+    LocalDatabase localDatabase = LocalDatabase();
+    return localDatabase.getIsLogin()??false;
   }
-
   static String? authRequired(BuildContext context, GoRouterState state) {
     debugPrint('isAuthenticated() ${isAuthenticated()}');
     debugPrint('authRequired');
@@ -198,7 +206,8 @@ class RoutesConfig {
       barrierLabel: barrierLabel,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return FadeTransition(
-          opacity: CurveTween(curve: curve ?? Curves.easeInOutCirc).animate(animation),
+          opacity: CurveTween(curve: curve ?? Curves.easeInOutCirc)
+              .animate(animation),
           child: child,
         );
       },

@@ -6,6 +6,4 @@ class Routs {
   static const String splashView = '/splashView';
   static const String dashBoard = '/dashBoard';
   static const String register = '/register';
-
-
 }

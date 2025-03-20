@@ -78,7 +78,7 @@ class CustomDropdown extends StatelessWidget {
         ),
         onChanged:onChanged ,
         dropdownDecoratorProps:  DropDownDecoratorProps(
-          baseStyle:const TextStyle(color: Colors.black54,fontSize: 14,fontWeight: FontWeight.w600) ,
+          baseStyle: TextStyle(color: darkTheme==true?Colors.white:LocalThemes.lightTextColor,fontSize: 14,fontWeight: FontWeight.w600) ,
           dropdownSearchDecoration: InputDecoration(
              border: InputBorder.none,
             hintText: hintText,

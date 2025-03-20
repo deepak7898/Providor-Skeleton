@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
 import 'Custom_gap.dart';
 import 'custom_text.dart';
 
@@ -21,7 +20,7 @@ Future<void> customLoader(BuildContext context) {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            LoadingAnimationWidget.discreteCircle(
+            LoadingAnimationWidget.fourRotatingDots(
              color: Colors.blue.shade700,
               size:size.height*0.03 ,
             ),

@@ -9,12 +9,14 @@ import 'package:provider/provider.dart';
 import '../../../controller/dashboard_controller.dart';
 import '../../../core/config/app_images.dart';
 
+import '../../../core/constant/colors.dart';
 import '../../../custom_widgets/Custom_gap.dart';
 import '../../../custom_widgets/custom_button.dart';
 import '../../../custom_widgets/custom_text.dart';
 
 import '../../../route/route_paths.dart';
 
+import '../../../widgets/gradient_colors.dart';
 import '../../../widgets/image_view.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -26,6 +28,13 @@ class OnBoardingView extends StatefulWidget {
 
 class _OnBoardingViewState extends State<OnBoardingView> {
   final PageController pageController = PageController();
+
+
+
+
+
+
+
   List<Item> item = [
     Item(
         image: AppImages.onBoardingFirst,
@@ -49,8 +58,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
     DashboardController dashboardController =
         Provider.of<DashboardController>(context);
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
+
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,7 +80,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                           : size.width * 0.01,
                       decoration: BoxDecoration(
                           color:
-                              index == swipIndex ? Colors.white : Colors.grey,
+                              index == swipIndex ? Colors.black87 : Colors.black45,
                           borderRadius: BorderRadius.circular(5)),
                     ),
                   );
@@ -87,16 +96,23 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   child: const CustomText(
                     text: 'Skip  ',
                     fontSize: 14,
+                    textColor: Colors.black87,
                     darkTheme: true,
                   ),
                 ),
                 const Icon(
+                  color: Colors.black87,
                   CupertinoIcons.right_chevron,
                   size: 12,
                 )
               ],
             )
           ],
+        ),
+        flexibleSpace:  Container(
+          decoration: BoxDecoration(
+            color: primaryColorLight
+          ),
         ),
       ),
       body: PageView.builder(
@@ -108,52 +124,56 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           });
         },
         itemBuilder: (BuildContext context, int index) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CustomGap(
-                height: size.height * 0.03,
-              ),
-              FadeInRight(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8),
-                  child: CustomText(
-                    text: item[index].title,
-                    fontSize: 30,
-                    darkTheme: true,
-                    textColor: Colors.white,
-                    fontWeight: FontWeight.w800,
+          return Container(
+            decoration: BoxDecoration(
+              gradient: backgroundGradient,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomGap(
+                  height: size.height * 0.03,
+                ),
+                FadeInRight(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: CustomText(
+                      text: item[index].title,
+                      fontSize: 30,
+                      darkTheme: true,
+                      textColor: textColor,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
-              ),
-              CustomGap(
-                height: size.height * 0.02,
-              ),
-              FadeInRight(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8),
-                  child: CustomText(
-                    text: item[index].subTitle,
-                    fontSize: 15,
-                    darkTheme: true,
-                    textColor: Colors.white,
-                    fontWeight: FontWeight.w300,
+                CustomGap(
+                  height: size.height * 0.02,
+                ),
+                FadeInRight(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: CustomText(
+                      text: item[index].subTitle,
+                      fontSize: 15,
+                      darkTheme: true,
+                      textColor: textColor,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
                 ),
-              ),
-              CustomGap(
-                height: size.height * 0.02,
-              ),
-              FadeInLeft(
-                child: ImageView(
-                  assetImage: item[index].image,
-                  height: size.height * 0.5,
-
-                  fit: BoxFit.contain,
-                  // color: swipIndex==1?Colors.white:null,
+                CustomGap(
+                  height: size.height * 0.07,
                 ),
-              ),
-            ],
+                FadeInLeft(
+                  child: ImageView(
+                    assetImage: item[index].image,
+                    height: size.height * 0.4,
+                    fit: BoxFit.contain,
+                    // color: swipIndex==1?Colors.white:null,
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -163,7 +183,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             child: Padding(
               padding: const EdgeInsets.only(left: 40, right: 40, bottom: 20),
               child: CustomButton(
-                darkTheme: dashboardController.darkTheme,
+
                 onTap: () {
                   pageController.nextPage(
                       duration: const Duration(milliseconds: 550),
@@ -172,6 +192,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                     context.pushNamed(Routs.loginView);
                   }
                 },
+
                 text: swipIndex == 2 ? 'Continue' : 'Next',
               ),
             ),

@@ -21,6 +21,8 @@ class CustomTextFormField extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final bool? readOnly;
+  final Color? shadowColor;
+  final int? maxLines ;
   final Color? hintTextColor;
   final FocusNode? focusNode;
   final void Function()? iconOnPressed;
@@ -32,9 +34,11 @@ class CustomTextFormField extends StatefulWidget {
       {super.key,
         this.hintText,
         this.prefixIcon,
+        this.shadowColor,
         this.suffixIcon,
         this.obscureText,
         this.maxLength,
+        this.maxLines,
         this.darkTheme,
         this.borderColor,
         this.controller,
@@ -65,7 +69,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           boxShadow: [
             if(widget.darkTheme==false)
             BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color:widget.shadowColor?? Colors.grey.withOpacity(0.5),
                 blurRadius: 4,
                 spreadRadius: 1,
                 offset: const Offset(0, 1)),
@@ -74,9 +78,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       ),
       child: TextFormField(
         controller:widget.controller,
+
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp(r'^[\x00-\x7F]+$')),
         ],
+        maxLines: widget.maxLines,
         obscureText: widget.obscureText ?? false,
         keyboardType: widget.keyboardType,
         readOnly:widget.readOnly??false,

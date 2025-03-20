@@ -1,22 +1,21 @@
 
+import 'package:The_Book_Corporation/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
 import '../../../controller/dashboard_controller.dart';
 import '../../../core/config/app_images.dart';
 import '../../../core/constant/colors.dart';
 import '../../../custom_widgets/Custom_gap.dart';
 import '../../../custom_widgets/custom_button.dart';
+import '../../../custom_widgets/custom_loader.dart';
 import '../../../custom_widgets/custom_text.dart';
 import '../../../custom_widgets/custom_text_form_field.dart';
-import '../../../custom_widgets/custome_dropdown.dart';
 import '../../../route/route_paths.dart';
 import '../../../services/theme/theme_controller.dart';
 import '../../../widgets/image_view.dart';
-import '../dashBoard/dashBoard.dart';
+import '../../../widgets/widgets.dart';
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
@@ -24,6 +23,8 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 class _LoginViewState extends State<LoginView> {
+  TextEditingController emailController =TextEditingController();
+  TextEditingController passwordController =TextEditingController();
   bool showIcon = true;
   @override
   Widget build(BuildContext context) {
@@ -32,140 +33,161 @@ class _LoginViewState extends State<LoginView> {
       builder: (context, dashboardController, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: dashboardController.darkTheme == false
-              ? Colors.white
-              : darkThemeApp,
+
           body: GestureDetector(
             onDoubleTap: () {
               dashboardController.darkTheme1(
                   value: !dashboardController.darkTheme);
             },
-            child: ListView(
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              // mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CustomGap(
-                  height: size.height * 0.05,
-                ),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,  // Start from the top
+                  end: Alignment.topCenter, // End at the bottom
+                  colors: [
+                    primaryColor,
+                    primaryColor,
+                    primaryColorLight,
+                    primaryColorSecond,
 
-                ImageView(
-                  assetImage: dashboardController.darkTheme == true
-                      ? AppImages.loginBannerGreen
-                      : AppImages.loginBanner,
-                  fit: BoxFit.cover,
-                  height: size.height * 0.33,
-                ),
-
-
-                CustomText(
-                  text: 'Login',
-                  textAlign: TextAlign.start,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w500,
-                  darkTheme: dashboardController.darkTheme,
-                ),
-                const CustomGap(),
-                CustomText(
-                  text: 'Enter credentials securely, accurately, and carefully. Protect your account with strong passwords. Stay safe!',
-                  textAlign: TextAlign.start,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 15,
-                  darkTheme: dashboardController.darkTheme,
-                ),
-                CustomGap(
-                  height: size.height * 0.03,
-                ),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration:   BoxDecoration(
-                          color:dashboardController.darkTheme?null:Colors.white,
-                          border: Border.all(width: 1,color: dashboardController.darkTheme==true?LocalThemes.darkThemeButtonContainerColor :primaryColor),
-                          borderRadius: const BorderRadius.all(Radius.circular(7)),
-                          boxShadow:dashboardController.darkTheme? [
-
-                          ]:[
-                            BoxShadow(
-                                spreadRadius: 1,
-                                blurRadius: 4,
-                                color: Colors.grey.withOpacity(0.5)
-                            )
-                          ]
-                      ),
-                      child:  Icon(MaterialCommunityIcons.account_supervisor_outline,color:dashboardController.darkTheme==true?LocalThemes.darkThemeButtonContainerColor :primaryColor ,),
-                    ),
-                    const CustomWidthGap(),
-                    Expanded(
-                      child:CustomDropdown(
-                        list: const ['ADMIN'],
-                        darkTheme: dashboardController.darkTheme,
-                        hintText: 'Select Role',
-                      ),
-                    ),
                   ],
                 ),
-                CustomGap(
-                  height: size.height * 0.02,
-                ),
-                CustomTextFormField(
-                  hintText: 'Enter Mobile No.',
-                  prefixIcon: Zocial.call,
-                  darkTheme: dashboardController.darkTheme,
-                ),
-                CustomGap(
-                  height: size.height * 0.02,
-                ),
-                Padding(
-                  padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: CustomTextFormField(
-                    hintText: 'Enter Password',
-                    prefixIcon: Ionicons.lock_closed_outline,
-                    obscureText: showIcon,
-                    darkTheme: dashboardController.darkTheme,
-                    iconOnPressed: () {
-                      setState(() {
-                        showIcon = !showIcon;
-                      });
-                    },
-                    suffixIcon: !showIcon ? Octicons.eye : Octicons.eye_closed,
+              ),
+              child: ListView(
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                children: [
+                  CustomGap(
+                    height: size.height * 0.05,
                   ),
-                ),
-                CustomGap(
-                  height: size.height * 0.02,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: size.height * 0.02,
-                      width: size.width * 0.05,
-                      child: Checkbox(
-                        activeColor: dashboardController.darkTheme == true
-                            ? LocalThemes.darkThemeButtonContainerColor :primaryColor,
-                        checkColor: Colors.white,
-                        shape: ContinuousRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            side: const BorderSide(color: Colors.white)),
-                        value: true,
-                        onChanged: (value) {},
-                      ),
+                  ImageView(
+                    assetImage: dashboardController.darkTheme == true
+                        ? AppImages.loginBannerGreen
+                        : AppImages.loginBanner,
+                    fit: BoxFit.cover,
+                    height: size.height * 0.33,
+                  ),
+                  CustomGap(
+                    height: size.height * 0.03,
+                  ),
+                  CustomText(
+                    text: 'Login',
+                    textAlign: TextAlign.start,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500,
+                    darkTheme: dashboardController.darkTheme,
+                  ),
+                  const CustomGap(),
+                  CustomText(
+                    text: 'Enter credentials securely,accurately,and carefully. Protect your account with strong passwords. Stay safe!',
+                    textAlign: TextAlign.start,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15,
+                    darkTheme: dashboardController.darkTheme,
+                  ),
+                  CustomGap(
+                    height: size.height * 0.04,
+                  ),
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //       padding: const EdgeInsets.all(12),
+                  //       decoration:   BoxDecoration(
+                  //           color:dashboardController.darkTheme?null:Colors.white,
+                  //           border: Border.all(width: 1,color: dashboardController.darkTheme==true?LocalThemes.darkThemeButtonContainerColor :primaryColor),
+                  //           borderRadius: const BorderRadius.all(Radius.circular(7)),
+                  //           boxShadow:dashboardController.darkTheme? [
+                  //
+                  //           ]:[
+                  //             BoxShadow(
+                  //                 spreadRadius: 1,
+                  //                 blurRadius: 4,
+                  //                 color: Colors.grey.withOpacity(0.5)
+                  //             )
+                  //           ]
+                  //       ),
+                  //       child:  Icon(MaterialCommunityIcons.account_supervisor_outline,color:dashboardController.darkTheme==true?LocalThemes.darkThemeButtonContainerColor :primaryColor ,),
+                  //     ),
+                  //     const CustomWidthGap(),
+                  //     Expanded(
+                  //       child:CustomDropdown(
+                  //         list: const ['ADMIN'],
+                  //         darkTheme: dashboardController.darkTheme,
+                  //         hintText: 'Select Role',
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // CustomGap(
+                  //   height: size.height * 0.02,
+                  // ),
+                  // CustomTextFormField(
+                  //   hintText: 'Enter Mobile No.',
+                  //   prefixIcon: Ionicons.call_outline,
+                  //   darkTheme: dashboardController.darkTheme,
+                  // ),
+                  CustomTextFormField(
+                    hintText: 'Enter Mobile No. / Email',
+                    shadowColor: Colors.black12,
+                    controller: emailController,
+                    prefixIcon: MaterialIcons.alternate_email,
+                    keyboardType: TextInputType.emailAddress,
+                    darkTheme: dashboardController.darkTheme,
+                  ),
+                  CustomGap(
+                    height: size.height * 0.02,
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: CustomTextFormField(
+                      shadowColor: Colors.black12,
+                      hintText:'Enter Password',
+                      maxLines: 1,
+                      controller: passwordController,
+                      prefixIcon: Ionicons.lock_closed_outline,
+                      obscureText: showIcon,
+                      darkTheme: dashboardController.darkTheme,
+                      iconOnPressed: () {
+                        setState(() {
+                          showIcon = !showIcon;
+                        });
+                      },
+                      suffixIcon: !showIcon ? Octicons.eye : Octicons.eye_closed,
                     ),
-                    const CustomWidthGap(),
-                    Expanded(
-                      child: CustomText(
-                        textAlign: TextAlign.start,
-                        fontSize: 12,
-                        darkTheme: dashboardController.darkTheme,
-                        fontWeight: FontWeight.w400,
-                        text:
-                            'Please accept the terms and conditions to proceed with your request.',
+                  ),
+                  CustomGap(
+                    height: size.height * 0.02,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: size.height * 0.02,
+                        width: size.width * 0.05,
+                        child: Checkbox(
+                          activeColor: Colors.black87,
+                          checkColor: Colors.white,
+                          shape: ContinuousRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              side: const BorderSide(color: Colors.white)),
+                          value: true,
+                          onChanged: (value) {},
+                        ),
                       ),
-                    )
-                  ],
-                ),
-              ],
+                      const CustomWidthGap(),
+                      Expanded(
+                        child: CustomText(
+                          textAlign: TextAlign.start,
+                          fontSize: 12,
+                          darkTheme: dashboardController.darkTheme,
+                          fontWeight: FontWeight.w400,
+                          text:
+                              'Please accept the terms and conditions to proceed with your request.',
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           bottomSheet: Column(
@@ -179,11 +201,26 @@ class _LoginViewState extends State<LoginView> {
                       padding: const EdgeInsets.only(
                           left: 16, right: 16, bottom: 10),
                       child: CustomButton(
-                        containerColor: primaryColor,
+
                         buttonTextColor: Colors.white,
-                        darkTheme: dashboardController.darkTheme,
-                        onTap: () {
-                          context.pushNamed(Routs.dashBoard,extra:const Dashboard(name: 'Deepak Das Mahant',) );
+
+                        onTap: () async{
+                          if(emailController.text.isEmpty==true){
+                              showSnackBar(
+                                context: context,
+                                text: 'Please Enter Email !!',
+                                );
+                              return ;
+                          }else if(passwordController.text.isEmpty==true){
+                            showSnackBar(
+                                context: context,
+                                text: 'Please Enter Password !!',
+                               );
+                            return ;
+                          }else{
+                            customLoader(context);
+                          await context.read<AuthController>().login(context: context, email: emailController.text, password: passwordController.text);
+                          }
                         },
                         text: 'Login',
                       ),
