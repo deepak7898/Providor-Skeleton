@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../services/theme/theme_controller.dart';
+import '../widgets/gradient_colors.dart';
 
 
 
@@ -14,7 +15,7 @@ class CustomText extends StatelessWidget {
  final double? textHeight;
  final FontWeight?fontWeight;
  final TextAlign? textAlign;
- final Color? textColor;
+ final Color? getTextColor;
    const CustomText({
     this.text,
     this.textAlign,
@@ -22,7 +23,7 @@ class CustomText extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.textHeight,
-    this.textColor,
+    this.getTextColor,
     this.darkTheme,
     super.key});
 
@@ -39,7 +40,7 @@ class CustomText extends StatelessWidget {
             fontFamily: '',
             wordSpacing: wordSpacing,
             fontWeight:fontWeight?? FontWeight.w800,
-            color:textColor??(darkTheme==true?LocalThemes.darkTextColor:LocalThemes.lightTextColor)
+            color:getTextColor??textColor
         ),
       ),
 

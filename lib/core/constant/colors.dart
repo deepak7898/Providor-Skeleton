@@ -18,8 +18,9 @@ MaterialColor createMaterialColor(Color color) {
 // const Color primaryColor = Color.fromARGB(255, 7, 89, 133);
 //  Color primaryColor = const Color.fromARGB(255, 197, 186, 255);
  Color primaryColor = const Color.fromARGB(255, 85, 173, 155);
+ Color primaryDarkColor = const Color.fromARGB(255, 68, 138, 124);
 Color primaryColorSecond = const Color.fromARGB(255, 216, 239, 211);
-Color primaryColorLight = Color.fromARGB(255, 244, 250, 246);
+Color primaryColorLight = const Color.fromARGB(255, 244, 250, 246);
 Color primaryColorLightSecond =  const Color.fromARGB(255, 100, 200, 200);
 
 const Color darkThemeApp = Colors.black87;

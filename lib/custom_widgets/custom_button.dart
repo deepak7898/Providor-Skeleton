@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
-import '../services/theme/theme_controller.dart';
 import 'custom_text.dart';
 
 class CustomButton extends StatefulWidget {
@@ -63,7 +62,7 @@ class _CustomButtonState extends State<CustomButton> {
             children: [
               CustomText(
                 text: widget.text,
-                textColor: Colors.white,
+                getTextColor: Colors.white,
                 fontSize: widget.textFontSize ?? 17,
                 fontWeight: FontWeight.w800,
               ),
@@ -153,7 +152,7 @@ class _CustomButtonSecState extends State<CustomButtonSec> {
               children: [
                 CustomText(
                   text: widget.text,
-                  textColor: widget.withOutColor == true
+                  getTextColor: widget.withOutColor == true
                       ? Colors.black54
                       : Colors.white,
                   fontSize: widget.textFontSize ?? 20,
@@ -226,7 +225,7 @@ class CustomButton2 extends StatelessWidget {
                 ),
               CustomText(
                 text: text,
-                textColor: Colors.white,
+                getTextColor: Colors.white,
                 fontSize: textFontSize ?? 20,
                 fontWeight: FontWeight.w800,
               ),

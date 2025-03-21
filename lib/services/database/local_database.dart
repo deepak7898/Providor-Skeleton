@@ -11,13 +11,14 @@ class LocalDatabase extends ChangeNotifier {
     box.write('token', token);
   }
    getToken() {
-    return box.read('token')==null?false:true;
+    return box.read('token');
   }
   setIsLogin({bool? isLogin}){
     box.write('isLogin', isLogin);
+    notifyListeners();
   }
   getIsLogin(){
-    return box.read('IsLogin');
+    return box.read('isLogin');
   }
 
 }

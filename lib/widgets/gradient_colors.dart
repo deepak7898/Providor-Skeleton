@@ -16,3 +16,4 @@ Gradient? backgroundGradient =  LinearGradient(
 );
 
 Color? textColor =Colors.black87;
+Color? whiteColor =Colors.white;

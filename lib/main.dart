@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'controller/auth_controller.dart';
 import 'controller/dashboard_controller.dart';
+import 'controller/user_controller.dart';
 import 'core/config/app_config.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +18,7 @@ void main() async{
         ChangeNotifierProvider(create: (context) => DashboardController()),
         ChangeNotifierProvider(create: (context) => AuthController()),
         ChangeNotifierProvider(create: (context) => LocalDatabase()),
+        ChangeNotifierProvider(create: (context) => UserController()),
       ],
       child:  const MyApp()));
 }

@@ -6,6 +6,8 @@ import '../app/view/auth/login_view.dart';
 import '../app/view/dashBoard/dashBoard.dart';
 import '../app/view/onBoarding_View/OnBoarding_view.dart';
 import '../app/view/splash_view/splash_view.dart';
+import '../app/view/user_as_publisher/add_user.dart';
+import '../app/view/user_as_publisher/user.dart';
 import '../services/database/local_database.dart';
 import '../services/theme/theme_controller.dart';
 import 'route_paths.dart';
@@ -52,6 +54,44 @@ class RoutesConfig {
           return customTransitionPage(
             state: state,
             child: const SplashView(),
+          );
+        },
+      ),
+      GoRoute(
+        name: Routs.user,
+        path: Routs.user,
+        pageBuilder: (context, state) {
+          return  CustomTransitionPage(
+            child: const User(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0), // Right to Left Transition
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              );
+            },
+          );
+        },
+      ),
+      GoRoute(
+        name: Routs.addUser,
+        path: Routs.addUser,
+        pageBuilder: (context, state) {
+          return  CustomTransitionPage(
+            child: const AddUser(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0), // Right to Left Transition
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              );
+            },
           );
         },
       ),

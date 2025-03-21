@@ -13,12 +13,10 @@ import '../../../custom_widgets/custom_loader.dart';
 import '../../../custom_widgets/custom_text.dart';
 import '../../../custom_widgets/custom_text_form_field.dart';
 import '../../../route/route_paths.dart';
-import '../../../services/theme/theme_controller.dart';
 import '../../../widgets/image_view.dart';
 import '../../../widgets/widgets.dart';
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
-
   @override
   State<LoginView> createState() => _LoginViewState();
 }
@@ -33,7 +31,6 @@ class _LoginViewState extends State<LoginView> {
       builder: (context, dashboardController, child) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-
           body: GestureDetector(
             onDoubleTap: () {
               dashboardController.darkTheme1(
@@ -131,7 +128,7 @@ class _LoginViewState extends State<LoginView> {
                     controller: emailController,
                     prefixIcon: MaterialIcons.alternate_email,
                     keyboardType: TextInputType.emailAddress,
-                    darkTheme: dashboardController.darkTheme,
+
                   ),
                   CustomGap(
                     height: size.height * 0.02,
@@ -145,7 +142,7 @@ class _LoginViewState extends State<LoginView> {
                       controller: passwordController,
                       prefixIcon: Ionicons.lock_closed_outline,
                       obscureText: showIcon,
-                      darkTheme: dashboardController.darkTheme,
+
                       iconOnPressed: () {
                         setState(() {
                           showIcon = !showIcon;
@@ -201,9 +198,7 @@ class _LoginViewState extends State<LoginView> {
                       padding: const EdgeInsets.only(
                           left: 16, right: 16, bottom: 10),
                       child: CustomButton(
-
                         buttonTextColor: Colors.white,
-
                         onTap: () async{
                           if(emailController.text.isEmpty==true){
                               showSnackBar(

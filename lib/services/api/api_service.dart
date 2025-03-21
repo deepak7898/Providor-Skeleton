@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
+import 'package:The_Book_Corporation/services/database/local_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
@@ -32,7 +33,7 @@ class ApiService {
 
   ///Seconds
   Map<String, String> defaultHeaders() {
-    return {'Content-Type': 'application/json'};
+    return {'Content-Type': 'application/json','Authorization': 'Bearer ${LocalDatabase().getToken()}'};
   }
   Future<http.Client> createHttpClient() async {
     final ioc = HttpClient()

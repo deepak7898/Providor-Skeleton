@@ -2,11 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-
-
-import '../../../controller/dashboard_controller.dart';
 import '../../../core/config/app_images.dart';
 
 import '../../../core/constant/colors.dart';
@@ -55,8 +51,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   int? swipIndex = 0;
   @override
   Widget build(BuildContext context) {
-    DashboardController dashboardController =
-        Provider.of<DashboardController>(context);
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
 
@@ -96,7 +91,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                   child: const CustomText(
                     text: 'Skip  ',
                     fontSize: 14,
-                    textColor: Colors.black87,
+                    getTextColor: Colors.black87,
                     darkTheme: true,
                   ),
                 ),
@@ -141,7 +136,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                       text: item[index].title,
                       fontSize: 30,
                       darkTheme: true,
-                      textColor: textColor,
+                      getTextColor: textColor,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -156,7 +151,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                       text: item[index].subTitle,
                       fontSize: 15,
                       darkTheme: true,
-                      textColor: textColor,
+                      getTextColor: textColor,
                       fontWeight: FontWeight.w300,
                     ),
                   ),

@@ -81,7 +81,7 @@ class ErrorHandler {
       Map<String, dynamic> json = jsonDecode('$body');
       DefaultModel responseBody = DefaultModel.fromJson(json);
       message = responseBody.message ?? getErrorMessage(statusCode);
-      if (responseBody.success == false) {
+      if (responseBody.status == false) {
         showError = true;
       }
     } catch (e) {
@@ -108,13 +108,11 @@ class ErrorHandler {
     try {
       switch (response.statusCode) {
         case 200:
-          return body;
+          return jsonDecode(body??'');
         case 201:
           return jsonDecode(body ?? '');
         case 401:
-          reAuth(message);
-          throwException();
-          break;
+          return body;
         case 400:
         return jsonDecode(body ?? '');
 

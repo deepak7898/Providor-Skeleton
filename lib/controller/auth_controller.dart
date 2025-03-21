@@ -26,7 +26,7 @@ class AuthController extends ChangeNotifier {
     };
     debugPrint('Sent Data is $body');
     LoginModel? responseData;
-    LocalDatabase localDatabase = Provider.of<LocalDatabase>(context);
+
     try {
 
       ApiService().post(
@@ -34,17 +34,14 @@ class AuthController extends ChangeNotifier {
         body: body,
       ).then(
             (response) {
-
           if (response != null) {
-
-            responseData = LoginModel.fromJson(jsonDecode(response));
+            responseData = LoginModel.fromJson(response);
             if(responseData?.status==true){
-
               showSnackBar(
                   context: context,
                   text: responseData?.message??'',
                   color: Colors.green);
-              localDatabase.setLocalData(token:responseData?.data?.token,userData: responseData?.data?.user );
+              context.read<LocalDatabase>().setLocalData(token:responseData?.data?.token,userData: responseData?.data?.user );
               context.pushNamed(Routs.dashBoard,extra:const Dashboard(name: 'Deepak Das Mahant',) );
             }else{
               showSnackBar(
@@ -59,7 +56,6 @@ class AuthController extends ChangeNotifier {
         },
       );
     } catch (e) {
-
       context.pop();
       showSnackBar(
           context: context,
@@ -129,14 +125,14 @@ class AuthController extends ChangeNotifier {
   }) async {
     try {
   var res  = await ApiService().get(endPoint: ApiConfig.roles, );
-  print('check res $res');
+
   if(res !=null){
 
-    GetRolesModel responseData = GetRolesModel.fromJson(jsonDecode(res));
-    print('check status ${getRoleModel?.status}');
+    GetRolesModel responseData = GetRolesModel.fromJson(res);
+
     if (responseData.status == true) {
       getRoleModel = responseData;
-      print('check if part ${getRoleModel?.status}');
+
       notifyListeners();
     }
   }

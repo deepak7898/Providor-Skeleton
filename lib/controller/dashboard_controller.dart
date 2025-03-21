@@ -6,9 +6,7 @@ class DashboardController extends ChangeNotifier {
     darkTheme = value??false;
     notifyListeners();
   }
-
    int? count = 0;
-
    void setCount() {
      count = (count ?? 0) + 1;
      notifyListeners();

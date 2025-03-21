@@ -6,35 +6,35 @@ String defaultModelToJson(DefaultModel data) => json.encode(data.toJson());
 
 class DefaultModel {
   DefaultModel({
-    this.success,
+    this.status,
     this.message,
     this.totalDuration,
   });
 
   DefaultModel.fromJson(dynamic json) {
-    success = json['success'];
+    status = json['status'];
     message = json['message'];
     totalDuration = json['totalDuration'];
   }
 
-  bool? success;
+  bool? status;
   String? message;
   String? totalDuration;
 
   DefaultModel copyWith({
-    bool? success,
+    bool? status,
     String? message,
     String? totalDuration,
   }) =>
       DefaultModel(
-        success: success ?? success,
+        status: status ?? status,
         message: message ?? this.message,
         totalDuration: totalDuration ?? this.totalDuration,
       );
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['success'] = success;
+    map['status'] = status;
     map['message'] = message;
     map['totalDuration'] = totalDuration;
     return map;

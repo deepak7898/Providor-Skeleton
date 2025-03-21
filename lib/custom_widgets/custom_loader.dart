@@ -1,4 +1,5 @@
 
+import 'package:The_Book_Corporation/core/constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'Custom_gap.dart';
@@ -21,7 +22,7 @@ Future<void> customLoader(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             LoadingAnimationWidget.fourRotatingDots(
-             color: Colors.blue.shade700,
+             color: primaryColor,
               size:size.height*0.03 ,
             ),
             CustomGap(

@@ -13,7 +13,7 @@ class CustomTextFormField extends StatefulWidget {
 
   final String? hintText;
   final bool? obscureText;
-  final bool? darkTheme;
+
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final int? maxLength;
@@ -39,7 +39,7 @@ class CustomTextFormField extends StatefulWidget {
         this.obscureText,
         this.maxLength,
         this.maxLines,
-        this.darkTheme,
+
         this.borderColor,
         this.controller,
         this.focusNode,
@@ -63,11 +63,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Container(
       // height:size.height*0.06,
       decoration: BoxDecoration(
-          color: widget.darkTheme==false?Colors.white:null,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(7),
-          border: Border.all(color:widget.darkTheme==true?LocalThemes.darkThemeButtonContainerColor :primaryColor, width: 1),
+          border: Border.all(color:primaryColor, width: 1),
           boxShadow: [
-            if(widget.darkTheme==false)
+
             BoxShadow(
                 color:widget.shadowColor?? Colors.grey.withOpacity(0.5),
                 blurRadius: 4,
@@ -91,8 +91,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         onTap:widget.onTap,
         obscuringCharacter: '*',
         validator: widget.validator,
-        cursorColor:widget.darkTheme==true?LocalThemes.darkTextColor:LocalThemes.lightTextColor,
-        style:  TextStyle(color: widget.darkTheme==true?LocalThemes.darkTextColor:LocalThemes.lightTextColor,fontSize:widget.obscureText==true?20 :17,fontWeight: FontWeight.w400,letterSpacing:widget.obscureText==true ?4:0),
+        cursorColor:LocalThemes.lightTextColor,
+        style:  TextStyle(color: LocalThemes.lightTextColor,fontSize:widget.obscureText==true?20 :17,fontWeight: FontWeight.w400,letterSpacing:widget.obscureText==true ?4:0),
         decoration: InputDecoration(
             counterText: '',
 
@@ -100,19 +100,19 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             hintText: widget.hintText,
             prefixIcon: Icon(
               widget.prefixIcon,
-              color: widget.darkTheme==true?LocalThemes.darkThemeButtonContainerColor:AppThemes.lightTheme(context).primaryColor,
+              color: AppThemes.lightTheme(context).primaryColor,
               size: size.height * 0.024,
             ),
             suffixIcon: IconButton(
               onPressed: widget.iconOnPressed,
               icon: Icon(
                 widget.suffixIcon,
-                color: widget.darkTheme==true?LocalThemes.darkThemeButtonContainerColor:AppThemes.lightTheme(context).primaryColor,
+                color:AppThemes.lightTheme(context).primaryColor,
                 size: size.height * 0.024,
               ),
             ),
             hintStyle:  TextStyle(
-                color:widget.darkTheme==true?LocalThemes.darkTextColor:LocalThemes.lightTextColor,
+                color:LocalThemes.lightTextColor,
                 fontFamily: '',
                 fontWeight: FontWeight.w300,
                 letterSpacing: 0,

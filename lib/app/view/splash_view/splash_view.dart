@@ -24,6 +24,7 @@ class _SplashViewState extends State<SplashView> {
     Future.delayed(
       const Duration(seconds: 3),
       () {
+        print('check login ${context.read<LocalDatabase>().getIsLogin()}');
         context.read<LocalDatabase>().getIsLogin()==true?context.pushReplacement(Routs.dashBoard):context.pushReplacement(Routs.onBoarding)
         ;
       },
@@ -50,18 +51,20 @@ class _SplashViewState extends State<SplashView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const CustomText(
+               CustomText(
                 text: 'TBC',
-                darkTheme: true,
+
                 fontSize: 30,
               ),
               SizedBox(
                 width: size.width * 0.65,
-                child: const CustomText(
+
+                child:  CustomText(
+
                   text:
                       'Training Name; Training Date; Duration (days and Hours); Objectives; Discription; Location Training Coordinator’s Name and Contact No.',
                   fontSize: 9,
-                  darkTheme: true,
+
                 ),
               ),
               CustomGap(

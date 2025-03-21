@@ -142,7 +142,7 @@ class _RegisterViewState extends State<RegisterView> {
                     controller:nameController ,
                     hintText: 'Enter Name',
                     prefixIcon: Ionicons.ios_person_outline,
-                    darkTheme: dashboardController.darkTheme,
+
                   ),
                   CustomGap(
                     height: size.height * 0.03,
@@ -151,7 +151,7 @@ class _RegisterViewState extends State<RegisterView> {
                     hintText: 'Enter Email',
                     controller:emailController ,
                     prefixIcon: MaterialIcons.alternate_email,
-                    darkTheme: dashboardController.darkTheme,
+
                   ),
                   CustomGap(
                     height: size.height * 0.03,
@@ -160,7 +160,7 @@ class _RegisterViewState extends State<RegisterView> {
                     controller:mobileController ,
                     hintText: 'Enter Mobile No.',
                     prefixIcon: Zocial.call,
-                    darkTheme: dashboardController.darkTheme,
+
                   ),
                   CustomGap(
                     height: size.height * 0.03,
@@ -172,7 +172,6 @@ class _RegisterViewState extends State<RegisterView> {
                     maxLines: 1,
                     prefixIcon: Ionicons.lock_closed_outline,
                     obscureText: showIcon,
-                    darkTheme: dashboardController.darkTheme,
                     iconOnPressed: () {
                       setState(() {
                         showIcon = !showIcon;
@@ -193,7 +192,7 @@ class _RegisterViewState extends State<RegisterView> {
                         controller: addressController,
                         hintText: 'Enter Address...',
                         prefixIcon: Ionicons.home_outline,
-                        darkTheme: dashboardController.darkTheme,
+
                       ),
                     ),
                   ),
