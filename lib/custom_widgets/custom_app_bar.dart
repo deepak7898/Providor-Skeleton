@@ -1,13 +1,13 @@
-
 import 'package:The_Book_Corporation/widgets/gradient_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:go_router/go_router.dart';
 
 import '../core/constant/colors.dart';
 import '../widgets/image_view.dart';
 import 'custom_text.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final bool? showAction;
   final bool? showLeadingIcon;
@@ -15,93 +15,109 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
   final bool? showActionLogo;
   final List<Widget>? actions;
   final PreferredSizeWidget? bottom;
-   final void Function()? checkOnPress;
-   final void Function()? leadingOnPress;
-  const CustomAppBar( {super.key,
+  final void Function()? checkOnPress;
+  final void Function()? leadingOnPress;
+  const CustomAppBar({
+    super.key,
     this.title,
-    this.showAction=false,
-    this.showActionLogo=false,
-    this.showLeadingIcon=false,
+    this.showAction = false,
+    this.showActionLogo = false,
+    this.showLeadingIcon = false,
     this.checkOnPress,
     this.leadingOnPress,
     this.fontSize,
     this.bottom,
     this.actions,
-});
+  });
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
   @override
   Widget build(BuildContext context) {
-    return  AppBar(
+    return AppBar(
       elevation: 3,
-      leading: showLeadingIcon==false?null :IconButton(onPressed: () {
-        Scaffold.of(context).openDrawer();
-      },icon:const Icon(Icons.menu_sharp),color: textColor,),
+      leading: showLeadingIcon == false
+          ? IconButton(
+              onPressed: () {
+                context.pop();
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: textColor,
+              ))
+          : IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(Icons.menu_sharp),
+              color: textColor,
+            ),
       shadowColor: primaryColor,
-      title:  CustomText(
+      title: CustomText(
         text: title,
       ),
-      actions:actions?? [
-        if(showAction==true)
-         Padding(
-          padding: const EdgeInsets.only(right:18),
-          child: IconButton( color: Colors.white, onPressed: checkOnPress, icon: const Icon(AntDesign.check),),
-        ),
-        if(showActionLogo==true)
-           Padding(
-            padding: const EdgeInsets.only(right: 5),
-            child: ImageView(
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const TestingDagsboadr()),
-                // );
-              },
-
-            ),
-          )
-
-
-      ],
+      actions: actions ??
+          [
+            if (showAction == true)
+              Padding(
+                padding: const EdgeInsets.only(right: 18),
+                child: IconButton(
+                  color: Colors.white,
+                  onPressed: checkOnPress,
+                  icon: const Icon(AntDesign.check),
+                ),
+              ),
+            if (showActionLogo == true)
+              Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: ImageView(
+                  onTap: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const TestingDagsboadr()),
+                    // );
+                  },
+                ),
+              )
+          ],
       flexibleSpace: Container(
-        decoration: BoxDecoration(
-         color: primaryColorLight
-        ),
+        decoration: BoxDecoration(color: primaryColorLight),
       ),
     );
   }
 }
-class CustomAppBar1 extends StatelessWidget implements PreferredSizeWidget{
+
+class CustomAppBar1 extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final bool? showAction;
   final double? fontSize;
   final bool? showActionLogo;
   final bool? showLeadingIcon;
   final PreferredSizeWidget? bottom;
-   final void Function()? checkOnPress;
-   final void Function()? leadingOnPress;
-  const CustomAppBar1( {super.key,
-    this.title,
-    this.showAction=false,
-    this.showActionLogo=false,
-    this.checkOnPress,
-    this.leadingOnPress,
-    this.fontSize,
-    this.bottom,
-    this.showLeadingIcon=true});
+  final void Function()? checkOnPress;
+  final void Function()? leadingOnPress;
+  const CustomAppBar1(
+      {super.key,
+      this.title,
+      this.showAction = false,
+      this.showActionLogo = false,
+      this.checkOnPress,
+      this.leadingOnPress,
+      this.fontSize,
+      this.bottom,
+      this.showLeadingIcon = true});
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
   @override
   Widget build(BuildContext context) {
-    return  AppBar(
+    return AppBar(
       elevation: 3,
-      automaticallyImplyLeading: showLeadingIcon??false,
-      leading:showLeadingIcon==true?null: IconButton(
-        icon: const Icon(Fontisto.arrow_left_l),
-        onPressed:leadingOnPress?? () {
-
-        },
-      ),
+      automaticallyImplyLeading: showLeadingIcon ?? false,
+      leading: showLeadingIcon == true
+          ? null
+          : IconButton(
+              icon: const Icon(Fontisto.arrow_left_l),
+              onPressed: leadingOnPress ?? () {},
+            ),
       //     :Builder(
       //   builder: (context) {
       //     return IconButton(
@@ -113,28 +129,29 @@ class CustomAppBar1 extends StatelessWidget implements PreferredSizeWidget{
       //   },
       // ),
       centerTitle: true,
-      title:  CustomText1(
+      title: CustomText1(
         text: title,
         textAlign: TextAlign.center,
-        fontSize:fontSize?? 24,
+        fontSize: fontSize ?? 24,
         textColor: Colors.white,
       ),
       actions: [
-        if(showAction==true)
-         Padding(
-          padding: const EdgeInsets.only(right:18),
-          child: IconButton( color: Colors.white, onPressed: checkOnPress, icon: const Icon(AntDesign.check),),
-        ),
-        if(showActionLogo==true)
-           Padding(
+        if (showAction == true)
+          Padding(
+            padding: const EdgeInsets.only(right: 18),
+            child: IconButton(
+              color: Colors.white,
+              onPressed: checkOnPress,
+              icon: const Icon(AntDesign.check),
+            ),
+          ),
+        if (showActionLogo == true)
+          Padding(
             padding: const EdgeInsets.only(right: 5),
             child: ImageView(
-              onTap: () {
-              },
+              onTap: () {},
             ),
           )
-
-
       ],
       bottom: bottom,
       flexibleSpace: Container(

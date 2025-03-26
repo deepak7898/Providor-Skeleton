@@ -1,5 +1,5 @@
 import 'package:The_Book_Corporation/controller/user_controller.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +59,7 @@ class _AddUserState extends State<AddUser> {
               height: size.height * 0.05,
             ),
             const CustomText(
-              text: 'Add Publisher',
+              text: 'Add User',
               textAlign: TextAlign.start,
               fontSize: 30,
               fontWeight: FontWeight.w500,
@@ -67,7 +67,7 @@ class _AddUserState extends State<AddUser> {
             const CustomGap(),
             const CustomText(
               text:
-                  "The publisher with the role of 'Admin' has the name 'publisher ', the email 'publisher@example.com', and the password 'publisher123'.",
+                  "The user with the role of 'Admin' has the name 'publisher ', the email 'user@example.com', and the password 'user123'.",
               textAlign: TextAlign.start,
               fontWeight: FontWeight.w500,
               fontSize: 15,
@@ -111,6 +111,7 @@ class _AddUserState extends State<AddUser> {
                               return element.roleName == v;
                             },
                           ).roleId;
+
                           setState(() {
                             role = id.toString();
                           });
@@ -136,6 +137,7 @@ class _AddUserState extends State<AddUser> {
             CustomTextFormField(
               controller: emailController,
               hintText: 'Enter Email',
+              keyboardType: TextInputType.emailAddress,
               prefixIcon: MaterialIcons.alternate_email,
             ),
             CustomGap(
@@ -161,6 +163,7 @@ class _AddUserState extends State<AddUser> {
             CustomTextFormField(
               controller: mobileController,
               hintText: 'Enter Mobile No.',
+              maxLength: 10,
               prefixIcon: Zocial.call,
               shadowColor: Colors.black12,
             ),
@@ -209,7 +212,7 @@ class _AddUserState extends State<AddUser> {
                           contact: mobileController.text,
                           address: addressController.text);
                     },
-                    text: 'Add Publisher',
+                    text: 'Add User',
                   ),
                 ),
               ),

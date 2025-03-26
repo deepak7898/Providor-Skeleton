@@ -6,6 +6,8 @@ import '../app/view/auth/login_view.dart';
 import '../app/view/dashBoard/dashBoard.dart';
 import '../app/view/onBoarding_View/OnBoarding_view.dart';
 import '../app/view/splash_view/splash_view.dart';
+import '../app/view/subject/add_subject.dart';
+import '../app/view/subject/subject_list.dart';
 import '../app/view/user_as_publisher/add_user.dart';
 import '../app/view/user_as_publisher/user.dart';
 import '../services/database/local_database.dart';
@@ -48,6 +50,27 @@ class RoutesConfig {
         },
       ),
       GoRoute(
+        name: Routs.addSubject,
+        path: Routs.addSubject,
+        pageBuilder: (context, state) {
+          AddSubject? data = state.extra as AddSubject?;
+          return CustomTransitionPage(
+
+            child:  AddSubject(name:data?.name ,className: data?.className,bookId: data?.bookId,bookType: data?.bookType,district: data?.district,editType: data?.editType,),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0), // Right to Left Transition
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              );
+            },
+          );
+        },
+      ),
+      GoRoute(
         name: Routs.splashView,
         path: Routs.splashView,
         pageBuilder: (context, state) {
@@ -63,6 +86,25 @@ class RoutesConfig {
         pageBuilder: (context, state) {
           return  CustomTransitionPage(
             child: const User(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0), // Right to Left Transition
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              );
+            },
+          );
+        },
+      ),
+      GoRoute(
+        name: Routs.subjectList,
+        path: Routs.subjectList,
+        pageBuilder: (context, state) {
+          return  CustomTransitionPage(
+            child: const SubjectList(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return SlideTransition(

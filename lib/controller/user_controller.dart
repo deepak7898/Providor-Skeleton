@@ -75,6 +75,7 @@ class UserController extends ChangeNotifier {
   GetUserModel? getUserModel;
   Future<GetUserModel?> getUserList({
     required BuildContext context,
+    bool?  isRefresh=false,
   }) async {
     refresh() {
       userLoader = false;
@@ -87,7 +88,10 @@ class UserController extends ChangeNotifier {
       notifyListeners();
     }
     try {
-      refresh();
+      if(isRefresh!=true){
+        refresh();
+      }
+
       var res  = await ApiService().get(endPoint: ApiConfig.users, );
 
       if(res !=null){
@@ -104,4 +108,81 @@ class UserController extends ChangeNotifier {
     }
     return getUserModel;
   }
+
+  Future<DefaultModel?> updateUser({
+    required BuildContext context,
+    required int id,
+    required String status,
+  }) async {
+    DefaultModel? defaultModel;
+    refresh() {
+
+      userLoader = false;
+      notifyListeners();
+    }
+
+    apiResponseCompleted() {
+      userLoader = true;
+      notifyListeners();
+    }
+    var body ={
+      'status':status,
+    };
+
+    try {
+
+        refresh();
+      var res  = await ApiService().put(endPoint: ApiConfig.approve,body:body, queryParameters: id,  );
+
+      if(res !=null){
+        DefaultModel responseData = DefaultModel.fromJson(res);
+        if (responseData.status == true) {
+          defaultModel =responseData;
+          notifyListeners();
+        }
+      }
+      apiResponseCompleted();
+    } catch (e, s) {
+      apiResponseCompleted();
+      debugPrint('Error is $e & $s');
+    }
+    return defaultModel;
+  }
+  Future<DefaultModel?> deleteUser({
+    required BuildContext context,
+    required int id,
+
+  }) async {
+    DefaultModel? defaultModel;
+    refresh() {
+      userLoader = false;
+      notifyListeners();
+    }
+
+    apiResponseCompleted() {
+      userLoader = true;
+      notifyListeners();
+    }
+
+
+    try {
+
+        refresh();
+      var res  = await ApiService().delete(endPoint: ApiConfig.deleteUser, queryParameters: id,  );
+
+      if(res !=null){
+        DefaultModel responseData = DefaultModel.fromJson(res);
+        if (responseData.status == true) {
+          defaultModel =responseData;
+          notifyListeners();
+        }
+      }
+      apiResponseCompleted();
+    } catch (e, s) {
+      apiResponseCompleted();
+      debugPrint('Error is $e & $s');
+    }
+    return defaultModel;
+  }
+
 }

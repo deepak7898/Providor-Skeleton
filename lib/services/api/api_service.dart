@@ -85,6 +85,32 @@ class ApiService {
     }
   }
 
+  Future<dynamic> delete({
+    required String endPoint,
+    String? baseUrl,
+    Map<String, String>? headers,
+    Object? body,
+    int? queryParameters,
+    bool? showError,
+  }) async {
+    String url = '${baseUrl ?? ApiConfig.baseUrl}$endPoint${queryParameters != null ? '$queryParameters' : ''}';
+    var uri = Uri.parse(url);
+
+    try {
+      final response = body == null
+          ? await http.delete(uri, headers: headers ?? defaultHeaders())
+          : await http.delete(uri, headers: headers ?? defaultHeaders(), body: jsonEncode(body))
+          .timeout(const Duration(seconds: timeOutDuration));
+
+      print('DELETE URL: $url');
+      print('Response: ${response.body}');
+
+      return ErrorHandler.processResponse(response: response, showError: showError);
+    } catch (e, s) {
+      return ErrorHandler.catchError(e, s, showError);
+    }
+  }
+
   ///3) PUT Request...
 
   Future<dynamic> put({
@@ -92,18 +118,17 @@ class ApiService {
     String? baseUrl,
     Map<String, String>? headers,
     Object? body,
+    required int queryParameters,
     bool? showError,
   }) async {
-    String url = (baseUrl ?? ApiConfig.baseUrl) + endPoint;
+    String url = '${baseUrl ?? ApiConfig.baseUrl}$endPoint$queryParameters';
     var uri = Uri.parse(url);
 
     try {
       final response = body == null
           ? await http.put(uri, headers: headers ?? defaultHeaders())
-          : await http
-          .put(uri, headers: headers ?? defaultHeaders(), body: body)
-          .timeout(const Duration(seconds: timeOutDuration));
-
+          : await http.put(uri, headers: headers ?? defaultHeaders(), body: jsonEncode(body)).timeout(const Duration(seconds: timeOutDuration));
+      print('check url $response');
       return ErrorHandler.processResponse(response: response, showError: showError);
     } catch (e, s) {
       return ErrorHandler.catchError(e, s, showError);

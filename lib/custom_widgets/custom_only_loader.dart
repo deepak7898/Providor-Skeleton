@@ -13,7 +13,7 @@ class OnlyLoader extends StatelessWidget {
     Size size =MediaQuery.of(context).size;
     return   LoadingAnimationWidget.fourRotatingDots(
       color: primaryDarkColor,
-      size:size.height*0.06 ,
+      size:size.height*0.04 ,
     );
   }
 }

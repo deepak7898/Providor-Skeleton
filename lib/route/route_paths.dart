@@ -8,4 +8,6 @@ class Routs {
   static const String register = '/register';
   static const String user = '/user';
   static const String addUser = '/addUser';
+  static const String subjectList = '/subjectList';
+  static const String addSubject = '/addSubject';
 }

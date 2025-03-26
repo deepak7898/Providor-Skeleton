@@ -3,15 +3,17 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:The_Book_Corporation/controller/auth_controller.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
-
-
+import 'package:provider/provider.dart';
 
 import '../../app/model/default/default_model.dart';
 import '../../main.dart';
+import '../../route/route_paths.dart';
 import '../../widgets/widgets.dart';
 import 'api_service.dart';
 
@@ -35,6 +37,7 @@ class ApiException implements Exception {
           (X509Certificate cert, String host, int port) => true; // Bypass SSL
     return IOClient(ioc);
   }
+
   /// This is Error Handling of Error...
 
   void errorHandle({
@@ -44,15 +47,19 @@ class ApiException implements Exception {
     String? message,
   }) {
     if (logError) {
-      FirebaseCrashlytics.instance.recordError(originalException, stackTrace ?? StackTrace.current);
+      FirebaseCrashlytics.instance
+          .recordError(originalException, stackTrace ?? StackTrace.current);
     }
     if (showError ?? true) {
       BuildContext? context = MyApp.navigatorKey.currentState?.context;
-      if(context!=null){
+      if (context != null) {
         showSnackBar(
-            context: context, text: message ?? this.message, color: Colors.red, icon: Icons.error_outline);
+            context: context,
+            text: message ?? this.message,
+            color: Colors.red,
+            icon: Icons.error_outline);
       }
-      }
+    }
 
     if (reportError) {
       // TODO: Report error to a remote error reporting service.
@@ -108,13 +115,15 @@ class ErrorHandler {
     try {
       switch (response.statusCode) {
         case 200:
-          return jsonDecode(body??'');
+          return jsonDecode(body ?? '');
         case 201:
           return jsonDecode(body ?? '');
         case 401:
-          return body;
+          reAuth(message);
+          return; // Ensure no further processing
+
         case 400:
-        return jsonDecode(body ?? '');
+          return jsonDecode(body ?? '');
 
         case 403:
           reAuth(message);
@@ -135,15 +144,16 @@ class ErrorHandler {
   static reAuth(String message) {
     BuildContext? context = MyApp.navigatorKey.currentContext;
     showError() {
-      if(context!=null){
+      if (context != null) {
         showSnackBar(context: context, text: message, color: Colors.red, icon: Icons.error_outline);
       }
-
-        }
-
-    showError();
-    // context.read<MemberAuthControllers>().logOut(context: context, message: message, color: Colors.red);
     }
+
+    if (context != null) {
+      showError();
+      context.read<AuthController>().logOut(context: context, message: message, color: Colors.red);
+    }
+  }
 
   static catchError(Object e, StackTrace s, bool? showError) {
     String? error;
@@ -153,10 +163,16 @@ class ErrorHandler {
       if (e.osError?.errorCode == 7) {
         error = 'No Internet connection';
       }
-      ApiException(message: error ?? e.osError?.message ?? '', originalException: e, stackTrace: s)
+      ApiException(
+              message: error ?? e.osError?.message ?? '',
+              originalException: e,
+              stackTrace: s)
           .errorHandle(showError: showError);
     } else if (e is TimeoutException) {
-      ApiException(message: e.message ?? 'API not responded in time', originalException: e, stackTrace: s)
+      ApiException(
+              message: e.message ?? 'API not responded in time',
+              originalException: e,
+              stackTrace: s)
           .errorHandle(showError: showError);
     } else {
       ApiException(message: e.toString(), originalException: e, stackTrace: s)
@@ -166,13 +182,15 @@ class ErrorHandler {
 
   static String getRequestStatus(int statusCode) {
     final status = apiStatues[statusCode];
-    String value = status?['name'] ?? 'Unknown error with name code $statusCode';
+    String value =
+        status?['name'] ?? 'Unknown error with name code $statusCode';
     return value;
   }
 
   static String getErrorMessage(int statusCode) {
     final status = apiStatues[statusCode];
-    String value = status?['message'] ?? 'Unknown error with name code $statusCode';
+    String value =
+        status?['message'] ?? 'Unknown error with name code $statusCode';
     return value;
   }
 

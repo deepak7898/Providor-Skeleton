@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:The_Book_Corporation/widgets/gradient_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,7 @@ class AuthController extends ChangeNotifier {
               showSnackBar(
                   context: context,
                   text: responseData?.message??'',
-                  color: Colors.green);
+                  color: textColor);
               context.read<LocalDatabase>().setLocalData(token:responseData?.data?.token,userData: responseData?.data?.user );
               context.pushNamed(Routs.dashBoard,extra:const Dashboard(name: 'Deepak Das Mahant',) );
             }else{
@@ -65,6 +66,27 @@ class AuthController extends ChangeNotifier {
 
     return responseData;
     // return responseData;
+  }
+
+  logOut({
+    required BuildContext context,
+    String? message,
+    Color? color,
+  }) async {
+    try {
+      LocalDatabase controller =LocalDatabase();
+      await controller.clearUserData(context).then((val) {
+        notifyListeners();
+        context.firstRoute();
+
+        context.pushReplacementNamed(Routs.loginView);
+      }).then((value) {
+        showSnackBar(context: context, text: message ?? 'Successfully Logout', color: color ?? Colors.green);
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
   }
   Future<LoginModel?> register({
     required BuildContext context,
@@ -140,5 +162,24 @@ class AuthController extends ChangeNotifier {
       debugPrint('Error is $e & $s');
     }
     return getRoleModel;
+  }
+}
+extension Navigation on BuildContext {
+  Future navigateTo({required Widget child}) {
+    return Navigator.of(this).push(MaterialPageRoute(builder: (context) => child)).then((value) => value);
+  }
+
+  Future navigateToReplacement({required Widget child}) {
+    return Navigator.of(this)
+        .pushReplacement(MaterialPageRoute(builder: (context) => child))
+        .then((value) => value);
+  }
+
+  void firstRoute() {
+    return Navigator.of(this).popUntil((route) => route.isFirst);
+  }
+
+  void navigateBack() {
+    return Navigator.of(this).pop();
   }
 }
