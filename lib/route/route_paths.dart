@@ -10,4 +10,6 @@ class Routs {
   static const String addUser = '/addUser';
   static const String subjectList = '/subjectList';
   static const String addSubject = '/addSubject';
+  static const String publisher = '/publisher';
+  static const String orderHistory = '/orderHistory';
 }

@@ -12,7 +12,7 @@ class DefaultModel {
   });
 
   DefaultModel.fromJson(dynamic json) {
-    status = json['status'];
+    status = json['success'];
     message = json['message'];
     totalDuration = json['totalDuration'];
   }
@@ -34,7 +34,7 @@ class DefaultModel {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['status'] = status;
+    map['success'] = status;
     map['message'] = message;
     map['totalDuration'] = totalDuration;
     return map;

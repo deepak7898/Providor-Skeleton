@@ -14,6 +14,7 @@ import '../../../core/enum_model/enum_model.dart';
 import '../../../custom_widgets/confirmation_dailog.dart';
 import '../../../custom_widgets/custom_drawer.dart';
 import '../../../custom_widgets/custom_only_loader.dart';
+import '../../../custom_widgets/no_data_found.dart';
 import '../../../route/route_paths.dart';
 import '../../../services/database/local_database.dart';
 import '../../../widgets/gradient_colors.dart';
@@ -73,7 +74,7 @@ class _UserState extends State<User> {
                   decoration: BoxDecoration(gradient: backgroundGradient),
                   child: controller.userLoader == false
                       ? const Center(child: OnlyLoader())
-                      : ListView.builder(
+                      :controller.getUserModel?.data==null?const NoDataFound(): ListView.builder(
                           itemCount: controller.getUserModel?.data?.length,
                           padding: const EdgeInsets.only(
                               top: 8, bottom: 80, right: 8, left: 8),
@@ -233,7 +234,7 @@ class _UserState extends State<User> {
                                       value: data?.name,
                                     ),
                                     CustomRowBox(
-                                      title: 'email',
+                                      title: 'Email',
                                       value: data?.email,
                                     ),
                                     CustomRowBox(

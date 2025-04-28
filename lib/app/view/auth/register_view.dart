@@ -25,6 +25,7 @@ class _RegisterViewState extends State<RegisterView> {
   TextEditingController mobileController =TextEditingController();
   TextEditingController passwordController =TextEditingController();
   TextEditingController addressController =TextEditingController();
+  TextEditingController uniqueCodeController =TextEditingController();
   bool showIcon = true;
   String ? role ='';
 
@@ -135,11 +136,22 @@ class _RegisterViewState extends State<RegisterView> {
                       );
                     },
                   ),
+                  if(role=='3' ||role=='6' ||role=='7')
+                  CustomGap(
+                    height: size.height * 0.03,
+                  ),
+                  if(role=='3' ||role=='6' ||role=='7')
+                    CustomTextFormField(
+                      controller:uniqueCodeController,
+                      hintText:role=='3' ?'Enter Depot Code':role=='6'?'Enter Cluster Code':role=='7'?'Enter HM Code':'Enter Teacher Code',
+                      prefixIcon: MaterialCommunityIcons.unicode,
+                    ),
                   CustomGap(
                     height: size.height * 0.03,
                   ),
                   CustomTextFormField(
-                    controller:nameController ,
+                    controller:nameController,
+                    textCapitalization: TextCapitalization.words,
                     hintText: 'Enter Name',
                     prefixIcon: Ionicons.ios_person_outline,
 
@@ -159,8 +171,9 @@ class _RegisterViewState extends State<RegisterView> {
                   CustomTextFormField(
                     controller:mobileController ,
                     hintText: 'Enter Mobile No.',
+                    maxLength: 10,
+                    keyboardType: TextInputType.number,
                     prefixIcon: Zocial.call,
-
                   ),
                   CustomGap(
                     height: size.height * 0.03,
@@ -246,13 +259,12 @@ class _RegisterViewState extends State<RegisterView> {
                           left: 16, right: 16, bottom: 10),
                       child: CustomButton(
                         onTap: () {
-                          // context.pushNamed(Routs.dashBoard,extra:const Dashboard(name: 'Deepak Das Mahant',) );
                           customLoader(context);
                           context.read<AuthController>().register(
                               context: context,
                               name: nameController.text, email: emailController.text,
-                              password: passwordController.text, roleId: '1', contact: mobileController.text, address: addressController.text);
-
+                              uniqueCode:uniqueCodeController.text,
+                              password: passwordController.text, roleId: role??'', contact: mobileController.text, address: addressController.text);
                         },
                         text: 'Register',
                       ),
@@ -265,7 +277,6 @@ class _RegisterViewState extends State<RegisterView> {
               ),
             ],
           ),
-
         );
       },
 

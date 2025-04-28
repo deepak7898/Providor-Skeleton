@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'controller/auth_controller.dart';
 import 'controller/common_controller.dart';
 import 'controller/dashboard_controller.dart';
+import 'controller/order_history_controller.dart';
+import 'controller/publisher_controller.dart';
 import 'controller/subject_controller.dart';
 import 'controller/user_controller.dart';
 import 'core/config/app_config.dart';
@@ -22,6 +24,8 @@ void main() async{
         ChangeNotifierProvider(create: (context) => UserController()),
         ChangeNotifierProvider(create: (context) => CommonController()),
         ChangeNotifierProvider(create: (context) => SubjectController()),
+        ChangeNotifierProvider(create: (context) => PublisherController()),
+        ChangeNotifierProvider(create: (context) => OrderHistoryController()),
       ],
       child:  const MyApp()));
 }

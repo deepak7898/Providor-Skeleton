@@ -13,8 +13,9 @@ class CustomDropdown extends StatelessWidget {
   final String? hintText;
   final bool? showSearchBox;
   final bool? darkTheme;
+  final String? selectedItem;
   final void Function(dynamic)? onChanged ;
-  const CustomDropdown({super.key,this.list,this.hintText,this.onChanged,this.showSearchBox,this.darkTheme});
+  const CustomDropdown({super.key,this.list,this.hintText,this.onChanged,this.showSearchBox,this.darkTheme,this.selectedItem});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,7 @@ class CustomDropdown extends StatelessWidget {
             ),
           ]),
       child: DropdownSearch(
+        selectedItem: selectedItem,
 
         dropdownButtonProps:  DropdownButtonProps(
           color:darkTheme==true?LocalThemes.darkThemeButtonContainerColor:AppThemes.lightTheme(context).primaryColor

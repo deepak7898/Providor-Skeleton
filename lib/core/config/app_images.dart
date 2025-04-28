@@ -3,7 +3,7 @@ class AppImages {
 
   static const String avatarImage = 'assets/images/avatar_image.png';
   static const String noImage = 'assets/images/no_image.png';
-  static const String noDataFound = 'assets/images/noDataFound.jpg';
+  static const String noDataFound = 'assets/lottie/no_data_found.json';
   static const String onBoardingFirst = 'assets/images/on_boarding_first.png';
   static const String onBoardingSecond = 'assets/images/on_boarding_five.png';
   static const String onBoardingThird = 'assets/images/on_boarding_third.png';

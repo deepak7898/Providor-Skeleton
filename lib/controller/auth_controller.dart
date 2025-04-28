@@ -1,6 +1,4 @@
 
-import 'dart:convert';
-
 import 'package:The_Book_Corporation/widgets/gradient_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +11,6 @@ import '../route/route_paths.dart';
 import '../services/api/api_service.dart';
 import '../services/database/local_database.dart';
 import '../widgets/widgets.dart';
-
 class AuthController extends ChangeNotifier {
   Future<LoginModel?> login({
     required BuildContext context,
@@ -43,7 +40,7 @@ class AuthController extends ChangeNotifier {
                   text: responseData?.message??'',
                   color: textColor);
               context.read<LocalDatabase>().setLocalData(token:responseData?.data?.token,userData: responseData?.data?.user );
-              context.pushNamed(Routs.dashBoard,extra:const Dashboard(name: 'Deepak Das Mahant',) );
+              context.go(Routs.dashBoard,extra:const Dashboard(name: 'Deepak Das Mahant',) );
             }else{
               showSnackBar(
                   context: context,
@@ -75,11 +72,11 @@ class AuthController extends ChangeNotifier {
   }) async {
     try {
       LocalDatabase controller =LocalDatabase();
+      print('check not logout page2 =======================>');
       await controller.clearUserData(context).then((val) {
-        notifyListeners();
-        context.firstRoute();
-
-        context.pushReplacementNamed(Routs.loginView);
+      print('check not logout page1 =======================>');
+        // context.firstRoute();
+        context.go(Routs.loginView);       notifyListeners();
       }).then((value) {
         showSnackBar(context: context, text: message ?? 'Successfully Logout', color: color ?? Colors.green);
       });
@@ -96,6 +93,7 @@ class AuthController extends ChangeNotifier {
     required String roleId,
     required String contact,
     required String address,
+    required String uniqueCode,
   }) async {
     FocusScope.of(context).unfocus();
     Map<String, dynamic> body = {
@@ -105,10 +103,9 @@ class AuthController extends ChangeNotifier {
       'role_id': roleId,
       'contact': contact,
       'address': address,
+      'unique_code': uniqueCode,
     };
-    debugPrint('Sent Data is $body');
     LoginModel? responseData;
-
     try {
       ApiService().post(
         endPoint: ApiConfig.register,
@@ -122,11 +119,18 @@ class AuthController extends ChangeNotifier {
               showSnackBar(
                   context: context,
                   text: responseData?.message??'',
-                  color: Colors.green);
-              context.pushNamed(Routs.dashBoard,extra:const Dashboard(name: 'Deepak Das Mahant',) );
+                  color: textColor);
+              context.pop();
+              context.pop();
+
+            }else{
+              context.pop();
+              showSnackBar(
+                  context: context,
+                  text: responseData?.message??'',
+                  color: Colors.red);
             }
-            context.pop();
-            context.pop();
+
             notifyListeners();
           }
 

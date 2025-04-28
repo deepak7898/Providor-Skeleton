@@ -13,7 +13,6 @@ class CustomTextFormField extends StatefulWidget {
 
   final String? hintText;
   final bool? obscureText;
-
   final IconData? prefixIcon;
   final IconData? suffixIcon;
   final int? maxLength;
@@ -29,6 +28,7 @@ class CustomTextFormField extends StatefulWidget {
   final void Function()? onEditingComplete;
   final void Function(String)? onChanged;
   final void Function()? onTap;
+  final TextCapitalization? textCapitalization ;
   final String? Function(String?)? validator;
   const CustomTextFormField(
       {super.key,
@@ -39,7 +39,7 @@ class CustomTextFormField extends StatefulWidget {
         this.obscureText,
         this.maxLength,
         this.maxLines,
-
+        this.textCapitalization,
         this.borderColor,
         this.controller,
         this.focusNode,
@@ -82,6 +82,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp(r'^[\x00-\x7F]+$')),
         ],
+        textCapitalization: widget.textCapitalization??TextCapitalization.none,
         maxLines: widget.maxLines,
         obscureText: widget.obscureText ?? false,
         keyboardType: widget.keyboardType,

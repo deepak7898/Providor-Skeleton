@@ -10,6 +10,11 @@ class LocalDatabase extends ChangeNotifier {
   setLocalData({UserData? userData,String? token}) {
     box.write('token', token);
     box.write('role', userData?.roleId);
+    box.write('name', userData?.name);
+    box.write('email', userData?.email);
+    box.write('contactNo', userData?.contactNumber);
+    box.write('address', userData?.address);
+    box.write('address', userData?.address);
   }
    getToken() {
     return box.read('token');

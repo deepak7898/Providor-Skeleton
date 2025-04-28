@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../core/constant/colors.dart';
 import '../route/route_paths.dart';
+import '../services/database/local_database.dart';
 import '../widgets/widgets.dart';
 import 'Custom_gap.dart';
 import 'custom_text.dart';
@@ -15,8 +17,10 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LocalDatabase localDatabase =Provider.of<LocalDatabase>(context);
     Size size = MediaQuery.of(context).size;
     return Drawer(
+      width: size.width*0.66,
       child: Container(
         decoration: BoxDecoration(gradient: backgroundGradient),
         child: Column(
@@ -41,17 +45,17 @@ class CustomDrawer extends StatelessWidget {
                         child: const Icon(Fontisto.person),
                       ),
                       const CustomWidthGap(),
-                      const Column(
+                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           CustomText(
-                            text: 'Admin',
+                            text: localDatabase.box.read('name'),
                             fontSize: 14,
                           ),
                           CustomText(
-                            text: 'admin@exmaple.com',
+                            text: localDatabase.box.read('email'),
                             fontSize: 12,
                           ),
                         ],
@@ -62,6 +66,14 @@ class CustomDrawer extends StatelessWidget {
                 CustomGap(
                   height: size.height * 0.03,
                 ),
+                CustomRow(
+                  onTap: () {
+                    context.pushNamed(Routs.publisher);
+                  },
+                  title: 'Assign Publisher',
+                  iconData: MaterialCommunityIcons.file_send_outline,
+                ),
+
                 CustomRow(
                   onTap: () {
                     context.pushNamed(Routs.user);
@@ -77,9 +89,12 @@ class CustomDrawer extends StatelessWidget {
                   title: 'Subject',
                   iconData: Feather.book,
                 ),
-                const CustomRow(
-                  title: 'Profile',
-                  iconData: Icons.precision_manufacturing,
+                 CustomRow(
+                  title: 'Order History',
+                  onTap: () {
+                    context.pushNamed(Routs.orderHistory);
+                  },
+                  iconData: MaterialCommunityIcons.history,
                 ),
                 CustomRow(
                   onTap: () {

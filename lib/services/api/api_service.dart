@@ -48,14 +48,15 @@ class ApiService {
     String? baseUrl,
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
+    String? queryParametersWithoutKey,
     bool? showError,
   }) async {
-    String url = (baseUrl ?? ApiConfig.baseUrl) + endPoint;
+    String url =queryParametersWithoutKey==null? (baseUrl ?? ApiConfig.baseUrl) + endPoint:'${baseUrl ?? ApiConfig.baseUrl}$endPoint$queryParametersWithoutKey';
     var uri = Uri.parse('$url${decodeQueryParameter(body: queryParameters)}');
 
     try {
       var response = await http.get(uri, headers: headers ?? defaultHeaders()).timeout(const Duration(seconds: timeOutDuration));
-           print('check resonce ${response.body}');
+
       return ErrorHandler.processResponse(response: response, showError: showError);
       // return response.body;
     } catch (e, s) {
@@ -73,6 +74,7 @@ class ApiService {
     bool? showError,
   }) async {
     String url = (baseUrl ?? ApiConfig.baseUrl) + endPoint;
+
     var uri = Uri.parse(url);
     // var client = await createHttpClient();
     try {
@@ -97,13 +99,9 @@ class ApiService {
     var uri = Uri.parse(url);
 
     try {
-      final response = body == null
-          ? await http.delete(uri, headers: headers ?? defaultHeaders())
+      final response = body == null ? await http.delete(uri, headers: headers ?? defaultHeaders())
           : await http.delete(uri, headers: headers ?? defaultHeaders(), body: jsonEncode(body))
           .timeout(const Duration(seconds: timeOutDuration));
-
-      print('DELETE URL: $url');
-      print('Response: ${response.body}');
 
       return ErrorHandler.processResponse(response: response, showError: showError);
     } catch (e, s) {

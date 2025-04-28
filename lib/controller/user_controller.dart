@@ -25,7 +25,7 @@ class UserController extends ChangeNotifier {
       'name': name,
       'email': email,
       'password': password,
-      'role_id': roleId,
+      'role': roleId,
       'contact': contact,
       'address': address,
     };

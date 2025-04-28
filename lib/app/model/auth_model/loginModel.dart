@@ -20,14 +20,14 @@ class LoginModel {
   });
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
-    status: json['status'] as bool?,
+    status: json['success'] as bool?,
     message: json['message'] as String?,
     data: json['data'] != null ? Data.fromJson(json['data']) : null,
     error: json['error'],
   );
 
   Map<String, dynamic> toJson() => {
-    'status': status,
+    'success': status,
     'message': message,
     'data': data?.toJson(),
     'error': error,

@@ -2,8 +2,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import '../app/model/common_model/getDistrictModel.dart';
+import '../app/model/common_model/getMediumModel.dart';
+import '../core/config/api_config.dart';
 import '../custom_widgets/custome_dropdown.dart';
+import '../services/api/api_service.dart';
 
 class CommonController extends ChangeNotifier {
   Future customDialog({
@@ -58,4 +61,50 @@ class CommonController extends ChangeNotifier {
           );
         });
   }
+  GetDistrictModel? getDistrictModel;
+  Future<GetDistrictModel?> getsDistrictList({
+    required BuildContext context,
+    bool?  isRefresh=false,
+  }) async {
+
+
+    try {
+
+      var res  = await ApiService().get(endPoint: ApiConfig.getDistrictList, );
+      if(res !=null){
+        GetDistrictModel responseData = GetDistrictModel.fromJson(res);
+        if (responseData.success == true) {
+          getDistrictModel = responseData;
+          notifyListeners();
+        }
+      }
+    } catch (e, s) {
+      debugPrint('Error is $e & $s');
+    }
+    return getDistrictModel;
+  }
+
+  GetMediumModel? getMediumModel;
+  Future<GetMediumModel?> getsMediumList({
+    required BuildContext context,
+    bool?  isRefresh=false,
+  }) async {
+    try {
+      var res  = await ApiService().get(endPoint: ApiConfig.getMediumList, );
+      if(res !=null){
+        GetMediumModel responseData = GetMediumModel.fromJson(res);
+        if (responseData.status == true) {
+          getMediumModel = responseData;
+          notifyListeners();
+        }
+      }
+
+    } catch (e, s) {
+
+      debugPrint('Error is $e & $s');
+    }
+    return getMediumModel;
+  }
+
+
 }

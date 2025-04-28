@@ -1,21 +1,24 @@
 import 'dart:convert';
-GetUserModel getUserModelFromJson(String str) => GetUserModel.fromJson(json.decode(str));
-String getUserModelToJson(GetUserModel data) => json.encode(data.toJson());
-class GetUserModel {
-  GetUserModel({
+GetMediumModel getMediumModelFromJson(String str) => GetMediumModel.fromJson(json.decode(str));
+String getMediumModelToJson(GetMediumModel data) => json.encode(data.toJson());
+class GetMediumModel {
+  GetMediumModel({
       bool? status, 
       String? message, 
+      int? count, 
       List<Data>? data, 
       dynamic error,}){
     _status = status;
     _message = message;
+    _count = count;
     _data = data;
     _error = error;
 }
 
-  GetUserModel.fromJson(dynamic json) {
+  GetMediumModel.fromJson(dynamic json) {
     _status = json['success'];
     _message = json['message'];
+    _count = json['count'];
     if (json['data'] != null) {
       _data = [];
       json['data'].forEach((v) {
@@ -26,11 +29,13 @@ class GetUserModel {
   }
   bool? _status;
   String? _message;
+  int? _count;
   List<Data>? _data;
   dynamic _error;
 
   bool? get status => _status;
   String? get message => _message;
+  int? get count => _count;
   List<Data>? get data => _data;
   dynamic get error => _error;
 
@@ -38,6 +43,7 @@ class GetUserModel {
     final map = <String, dynamic>{};
     map['success'] = _status;
     map['message'] = _message;
+    map['count'] = _count;
     if (_data != null) {
       map['data'] = _data?.map((v) => v.toJson()).toList();
     }
@@ -51,44 +57,32 @@ Data dataFromJson(String str) => Data.fromJson(json.decode(str));
 String dataToJson(Data data) => json.encode(data.toJson());
 class Data {
   Data({
-      int? userId, 
-      String? name, 
-      String? email, 
-      int? roleId, 
-      String? status,}){
-    _userId = userId;
-    _name = name;
-    _email = email;
-    _roleId = roleId;
-    _status = status;
+      int? id, 
+      int? mediumCd, 
+      String? mediumName,}){
+    _id = id;
+    _mediumCd = mediumCd;
+    _mediumName = mediumName;
 }
 
   Data.fromJson(dynamic json) {
-    _userId = json['user_id'];
-    _name = json['name'];
-    _email = json['email'];
-    _roleId = json['role_id'];
-    _status = json['status'];
+    _id = json['id'];
+    _mediumCd = json['medium_cd'];
+    _mediumName = json['medium_name'];
   }
-  int? _userId;
-  String? _name;
-  String? _email;
-  int? _roleId;
-  String? _status;
+  int? _id;
+  int? _mediumCd;
+  String? _mediumName;
 
-  int? get userId => _userId;
-  String? get name => _name;
-  String? get email => _email;
-  int? get roleId => _roleId;
-  String? get status => _status;
+  int? get id => _id;
+  int? get mediumCd => _mediumCd;
+  String? get mediumName => _mediumName;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['user_id'] = _userId;
-    map['name'] = _name;
-    map['email'] = _email;
-    map['role_id'] = _roleId;
-    map['status'] = _status;
+    map['id'] = _id;
+    map['medium_cd'] = _mediumCd;
+    map['medium_name'] = _mediumName;
     return map;
   }
 

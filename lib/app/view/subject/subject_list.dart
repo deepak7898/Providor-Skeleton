@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../controller/common_controller.dart';
 import '../../../core/constant/colors.dart';
 import '../../../custom_widgets/Custom_gap.dart';
 import '../../../custom_widgets/confirmation_dailog.dart';
@@ -11,6 +12,7 @@ import '../../../custom_widgets/custom_app_bar.dart';
 import '../../../custom_widgets/custom_drawer.dart';
 import '../../../custom_widgets/custom_only_loader.dart';
 import '../../../custom_widgets/custom_text.dart';
+import '../../../custom_widgets/no_data_found.dart';
 import '../../../route/route_paths.dart';
 import '../../../widgets/gradient_colors.dart';
 import '../user_as_publisher/user.dart';
@@ -28,22 +30,37 @@ class _SubjectListState extends State<SubjectList> {
     return await context.read<SubjectController>().getSubjectList(context: context,isRefresh:isRefresh );
   }
 
-  // Future updateUser({required int id,String? status}) async {
-  //   return await context.read<UserController>().updateUser(context: context, id: id, status: status??'').whenComplete(() {
-  //     fetchUserList();
-  //   },);
-  // }
-  // Future deleteUser({required int id,}) async {
-  //   return await context.read<UserController>().deleteUser(context: context, id: id,).whenComplete(() {
-  //     fetchUserList();
-  //   },);
-  // }
+  Future fetchDistrictList({bool? isRefresh}) async {
+    return await context
+        .read<CommonController>()
+        .getsDistrictList(context: context, isRefresh: isRefresh);
+  }
+  Future deleteUser({required int id,}) async {
+    return await context.read<SubjectController>().deleteUser(context: context, id: id,).whenComplete(() {
+      fetchSubjectList();
+    },);
+  }
+   getDistrict({required String districtId})  {
+    final districtModel = context.read<CommonController>().getDistrictModel;
+
+    if (districtModel?.data != null) {
+      try {
+        return districtModel!.data!
+            .firstWhere((element) => element.districtCd== districtId)
+            .districtName;
+      } catch (e) {
+        debugPrint("Medium not found: $e");
+      }
+    }
+    return null;
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       fetchSubjectList();
+      fetchDistrictList();
     });
     super.initState();
   }
@@ -58,7 +75,7 @@ class _SubjectListState extends State<SubjectList> {
           color: whiteColor,
           backgroundColor: primaryColor,
           onRefresh: () async {
-
+            fetchSubjectList(isRefresh: true);
           },
           child: Consumer<SubjectController>(
             builder: (context, controller, child) {
@@ -66,7 +83,7 @@ class _SubjectListState extends State<SubjectList> {
                   decoration: BoxDecoration(gradient: backgroundGradient),
                   child: controller.subjectLoader == false
                       ? const Center(child: OnlyLoader())
-                      : ListView.builder(
+                      :controller.getSubjectListModel?.data==null? const NoDataFound():ListView.builder(
                     itemCount: controller.getSubjectListModel?.data?.length,
                     padding: const EdgeInsets.only(
                         top: 8, bottom: 80, right: 8, left: 8),
@@ -114,7 +131,8 @@ class _SubjectListState extends State<SubjectList> {
                                           color: whiteColor,
                                         ),
                                         child: CustomText(
-                                          text: data?.currentSession??'---:---',
+                                          // text: data?.currentSession??'---:---',
+                                          text: data?.id.toString()??'---:---',
                                           getTextColor:textColor,
                                           fontSize: 13,
                                         ),
@@ -126,9 +144,9 @@ class _SubjectListState extends State<SubjectList> {
                                             backgroundColor: whiteColor,
                                             iconColor: Colors.red,
                                             onTap: () {
-                                              showConfirmationDialog(context: context, title: 'Delete User !!', description: 'Do you want to delete this user?', proceedButton:
+                                              showConfirmationDialog(context: context, title: 'Delete Subject !!', description: 'Do you want to delete this subject?', proceedButton:
                                               TextButton(onPressed: () {
-                                                // deleteUser(id: data?.userId??0);
+                                                deleteUser(id: data?.id??0);
                                                 context.pop();
 
                                               }, child: const CustomText(text: 'Delete',fontSize: 15,))
@@ -141,12 +159,15 @@ class _SubjectListState extends State<SubjectList> {
                                             onTap: () async{
                                            await   context.pushNamed(Routs.addSubject,extra: AddSubject(
                                                 editType:true ,
-                                                district: data?.districtId,
+                                                district: data?.districtId.toString(),
                                                 bookType: data?.bookType,
-                                                bookId: data?.id.toString(),
+                                                bookId: data?.id,
+                                                mediumName: data?.mediumName??'',
                                                 className: data?.classLevel,
                                                 name: data?.name,
-                                              ) );
+                                              ) ).whenComplete(() {
+                                             fetchSubjectList();
+                                              },);
                                             },
                                             iconData: Icons.edit,
                                             backgroundColor: whiteColor,
@@ -169,12 +190,17 @@ class _SubjectListState extends State<SubjectList> {
                               CustomRowBox(
                                 title: 'District',
                                 // value: data?.roleId.toString(),
-                                value: data?.districtId??'---:---',
+                                value: data?.districtId==null?'---:---':getDistrict(districtId:data?.districtId.toString() ??""),
                               ),
                               CustomRowBox(
                                 title: 'Book Type',
                                 // value: data?.roleId.toString(),
                                 value: data?.bookType??'---:---',
+                              ),
+                              CustomRowBox(
+                                title: 'Book Type',
+                                // value: data?.roleId.toString(),
+                                value: data?.mediumName??'---:---',
                               )
                             ],
                           ),

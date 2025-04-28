@@ -14,8 +14,8 @@ class GetRolesModel {
 }
 
   GetRolesModel.fromJson(dynamic json) {
-    print('check jshon form $json');
-    _status = json['status'];
+
+    _status = json['success'];
     _message = json['message'];
     if (json['data'] != null) {
       _data = [];
@@ -37,7 +37,7 @@ class GetRolesModel {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['status'] = _status;
+    map['success'] = _status;
     map['message'] = _message;
     if (_data != null) {
       map['data'] = _data?.map((v) => v.toJson()).toList();

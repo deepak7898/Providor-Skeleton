@@ -148,10 +148,10 @@ class ErrorHandler {
         showSnackBar(context: context, text: message, color: Colors.red, icon: Icons.error_outline);
       }
     }
-
+    context?.read<AuthController>().logOut( message: message, color: Colors.red, context: context);
     if (context != null) {
       showError();
-      context.read<AuthController>().logOut(context: context, message: message, color: Colors.red);
+
     }
   }
 
