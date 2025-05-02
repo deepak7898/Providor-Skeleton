@@ -11,10 +11,10 @@ Future<void> customLoader(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        backgroundColor: Colors.white,
+        backgroundColor: primaryColor,
         shape: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.blue
+          borderSide:  BorderSide(
+            color:primaryColor
           ),
           borderRadius: BorderRadius.circular(4,),
         ),
@@ -22,7 +22,7 @@ Future<void> customLoader(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             LoadingAnimationWidget.fourRotatingDots(
-             color: primaryColor,
+             color: Colors.white,
               size:size.height*0.03 ,
             ),
             CustomGap(
@@ -31,6 +31,7 @@ Future<void> customLoader(BuildContext context) {
             const CustomText(
               text: 'Please wait....',
               fontWeight: FontWeight.w500,
+              getTextColor: Colors.white,
               fontSize: 20,
             )
           ],

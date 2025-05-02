@@ -32,6 +32,7 @@ class AuthController extends ChangeNotifier {
         body: body,
       ).then(
             (response) {
+              print('check our responce ${response}');
           if (response != null) {
             responseData = LoginModel.fromJson(response);
             if(responseData?.status==true){
@@ -72,9 +73,9 @@ class AuthController extends ChangeNotifier {
   }) async {
     try {
       LocalDatabase controller =LocalDatabase();
-      print('check not logout page2 =======================>');
+
       await controller.clearUserData(context).then((val) {
-      print('check not logout page1 =======================>');
+
         // context.firstRoute();
         context.go(Routs.loginView);       notifyListeners();
       }).then((value) {

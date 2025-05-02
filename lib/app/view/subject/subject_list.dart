@@ -60,7 +60,10 @@ class _SubjectListState extends State<SubjectList> {
     // TODO: implement initState
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       fetchSubjectList();
-      fetchDistrictList();
+      if(context.read<SubjectController>().getSubjectListModel?.data!=null){
+        fetchDistrictList();
+      }
+
     });
     super.initState();
   }

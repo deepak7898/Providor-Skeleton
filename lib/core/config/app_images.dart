@@ -8,8 +8,9 @@ class AppImages {
   static const String onBoardingSecond = 'assets/images/on_boarding_five.png';
   static const String onBoardingThird = 'assets/images/on_boarding_third.png';
   static const String splashBackground = 'assets/images/splash_background.png';
-  static const String loginBanner = 'assets/images/login_banner1.png';
+  static const String loginBanner = 'assets/images/login_banner2.png';
   static const String loginBannerGreen = 'assets/images/login_banner_green.png';
   static const String loginBannerLottie = 'assets/lottie/login_banner.json';
   static const String splashImage = 'assets/images/splash_image.png';
+  static const String smgLogo = 'assets/images/smgLogo.png';
 }

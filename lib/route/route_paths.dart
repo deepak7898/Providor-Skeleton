@@ -12,4 +12,5 @@ class Routs {
   static const String addSubject = '/addSubject';
   static const String publisher = '/publisher';
   static const String orderHistory = '/orderHistory';
+  static const String ISBNDetailsByScanScreen = '/ISBNDetailsByScanScreen';
 }

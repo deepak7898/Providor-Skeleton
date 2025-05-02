@@ -1,12 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 
 
 import 'package:provider/provider.dart';
 
 import '../../../custom_widgets/custom_app_bar.dart';
+import '../../../custom_widgets/custom_button.dart';
 import '../../../custom_widgets/custom_text.dart';
+import '../../../route/route_paths.dart';
 import '../../../services/database/local_database.dart';
 import '../../../custom_widgets/custom_drawer.dart';
 import '../../../widgets/gradient_colors.dart';
@@ -43,6 +46,23 @@ class _DashboardState extends State<Dashboard> {
             text: 'DashBoard',
           ),
         ),
+      ),
+      bottomSheet: Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 16, right: 16, bottom: 10),
+              child: CustomButton(
+                buttonTextColor: Colors.white,
+                onTap: () async{
+                  context.pushNamed(Routs.ISBNDetailsByScanScreen);
+                },
+                text: 'ISBN SCAN',
+              ),
+            ),
+          ),
+        ],
       ),
       // bottomSheet: Padding(
       //   padding: EdgeInsets.only(left: 10, right: 10, bottom: 30),

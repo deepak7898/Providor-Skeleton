@@ -10,7 +10,6 @@ class DefaultModel {
     this.message,
     this.totalDuration,
   });
-
   DefaultModel.fromJson(dynamic json) {
     status = json['success'];
     message = json['message'];

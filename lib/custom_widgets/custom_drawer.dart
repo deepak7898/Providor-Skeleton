@@ -96,6 +96,15 @@ class CustomDrawer extends StatelessWidget {
                   },
                   iconData: MaterialCommunityIcons.history,
                 ),
+
+                 if(localDatabase.box.read('role').toString()=='1')
+                 CustomRow(
+                  title: 'Scan ISBN',
+                  onTap: () {
+                    context.pushNamed(Routs.ISBNDetailsByScanScreen);
+                  },
+                  iconData: MaterialCommunityIcons.history,
+                ),
                 CustomRow(
                   onTap: () {
                     showSnackBar(

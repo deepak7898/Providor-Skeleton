@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../../app/model/default/default_model.dart';
 import '../../main.dart';
-import '../../route/route_paths.dart';
+
 import '../../widgets/widgets.dart';
 import 'api_service.dart';
 
@@ -120,9 +120,11 @@ class ErrorHandler {
           return jsonDecode(body ?? '');
         case 401:
           reAuth(message);
-          return; // Ensure no further processing
+          return jsonDecode(body ?? ''); // Ensure no further processing
 
         case 400:
+          return jsonDecode(body ?? '');
+        case 404:
           return jsonDecode(body ?? '');
 
         case 403:

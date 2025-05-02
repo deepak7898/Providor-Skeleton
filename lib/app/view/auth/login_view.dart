@@ -62,6 +62,7 @@ class _LoginViewState extends State<LoginView> {
                         : AppImages.loginBanner,
                     fit: BoxFit.cover,
                     height: size.height * 0.33,
+                    width: double.infinity,
                   ),
                   CustomGap(
                     height: size.height * 0.03,

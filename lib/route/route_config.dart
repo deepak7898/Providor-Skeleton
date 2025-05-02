@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../app/view/auth/login_view.dart';
 import '../app/view/dashBoard/dashBoard.dart';
+import '../app/view/isbn_scan/scan_isbn_get_details.dart';
 import '../app/view/onBoarding_View/OnBoarding_view.dart';
 import '../app/view/order_book_history/book_history.dart';
 import '../app/view/publisher/publisher.dart';
@@ -101,6 +102,27 @@ class RoutesConfig {
           return CustomTransitionPage(
 
             child:  const OrderHistory(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0), // Right to Left Transition
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              );
+            },
+          );
+        },
+      ),
+      GoRoute(
+        name: Routs.ISBNDetailsByScanScreen,
+        path: Routs.ISBNDetailsByScanScreen,
+        pageBuilder: (context, state) {
+
+          return CustomTransitionPage(
+
+            child:  const ISBNDetailsByScanScreen(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return SlideTransition(

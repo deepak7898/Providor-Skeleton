@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 
 
 import '../../../core/config/app_images.dart';
-import '../widgets/image_view.dart';
+
 import 'Custom_gap.dart';
 import 'custom_text.dart';
 

@@ -3,8 +3,9 @@
 class ApiConfig {
   ///API Configurations..
 
-  static const domainName = 'http://10.62.1.90:5000/api/v1/';
-  static const forImage = 'http://10.62.1.90:5000/';
+  // static const domainName = 'http://10.62.1.111:5000/api/v1/';/// ashish
+  static const domainName = 'http://10.62.1.105:5000/api/v1/'; /// aman
+  static const forImage = 'http://10.62.1.97:5000/';
   static const String version = '/api/leaveManagment';
   static const String baseUrl = domainName;
   static const String mapsBaseUrl = 'https://maps.googleapis.com/maps/api';
@@ -32,6 +33,7 @@ class ApiConfig {
   static const String deleteSubjectAssigned = 'subject-assign/';
   static const String getIsbn = 'isbn/';
   static const String bookAssign = 'book-assign';
+  static const scanISBNGetDetails = "isbn/getISBNDetails/";
 
 
   // static const String privacyPolicyUrl = '${baseUrl}privacy-policy';

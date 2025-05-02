@@ -126,7 +126,7 @@ class ApiService {
       final response = body == null
           ? await http.put(uri, headers: headers ?? defaultHeaders())
           : await http.put(uri, headers: headers ?? defaultHeaders(), body: jsonEncode(body)).timeout(const Duration(seconds: timeOutDuration));
-      print('check url $response');
+
       return ErrorHandler.processResponse(response: response, showError: showError);
     } catch (e, s) {
       return ErrorHandler.catchError(e, s, showError);
