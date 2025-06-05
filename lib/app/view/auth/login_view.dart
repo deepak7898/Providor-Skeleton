@@ -214,6 +214,7 @@ class _LoginViewState extends State<LoginView> {
                                );
                             return ;
                           }else{
+
                             customLoader(context);
                           await context.read<AuthController>().login(context: context, email: emailController.text, password: passwordController.text);
                           }

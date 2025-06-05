@@ -66,36 +66,36 @@ class CustomDrawer extends StatelessWidget {
                 CustomGap(
                   height: size.height * 0.03,
                 ),
-                CustomRow(
-                  onTap: () {
-                    context.pushNamed(Routs.publisher);
-                  },
-                  title: 'Assign Publisher',
-                  iconData: MaterialCommunityIcons.file_send_outline,
-                ),
-
-                CustomRow(
-                  onTap: () {
-                    context.pushNamed(Routs.user);
-                  },
-                  title: 'User',
-                  iconData: Icons.person,
-                ),
-
-                CustomRow(
-                  onTap: () {
-                    context.pushNamed(Routs.subjectList);
-                  },
-                  title: 'Subject',
-                  iconData: Feather.book,
-                ),
-                 CustomRow(
-                  title: 'Order History',
-                  onTap: () {
-                    context.pushNamed(Routs.orderHistory);
-                  },
-                  iconData: MaterialCommunityIcons.history,
-                ),
+                // CustomRow(
+                //   onTap: () {
+                //     context.pushNamed(Routs.publisher);
+                //   },
+                //   title: 'Assign Publisher',
+                //   iconData: MaterialCommunityIcons.file_send_outline,
+                // ),
+                //
+                // CustomRow(
+                //   onTap: () {
+                //     context.pushNamed(Routs.user);
+                //   },
+                //   title: 'User',
+                //   iconData: Icons.person,
+                // ),
+                //
+                // CustomRow(
+                //   onTap: () {
+                //     context.pushNamed(Routs.subjectList);
+                //   },
+                //   title: 'Subject',
+                //   iconData: Feather.book,
+                // ),
+                //  CustomRow(
+                //   title: 'Order History',
+                //   onTap: () {
+                //     context.pushNamed(Routs.orderHistory);
+                //   },
+                //   iconData: MaterialCommunityIcons.history,
+                // ),
 
                  if(localDatabase.box.read('role').toString()=='1')
                  CustomRow(
